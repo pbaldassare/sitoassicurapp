@@ -18,8 +18,8 @@ const f = site.features;
         f.blocks.map((b, i) => (
           <details
             class:list={[
-              'card group flex flex-col p-0 open:shadow-card lg:open:shadow-none',
-              b.size === 'large' && 'lg:col-span-2 lg:bg-slate-50',
+              'card card-glow group flex flex-col p-0 open:shadow-card lg:open:shadow-none',
+              b.size === 'large' && 'lg:col-span-2 card-glow-tinted',
             ]}
             data-reveal
             style={`--reveal-delay: ${(i % 4) * 70}ms`}

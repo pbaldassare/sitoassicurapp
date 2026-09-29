@@ -5,7 +5,7 @@ const c = site.collab;
 const d = c.diagram;
 ---
 
-<section id="collaborazioni" class="section scroll-mt-20 bg-navy-900 text-white" aria-labelledby="collab-title">
+<section id="collaborazioni" class="section dark-glow scroll-mt-20 text-white" aria-labelledby="collab-title">
   <div class="container-content">
     <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
       <div data-reveal>
@@ -31,7 +31,7 @@ const d = c.diagram;
       </div>
 
       <!-- Schema a tre livelli: tariffa → convenzione → istanze -->
-      <figure class="self-center" data-reveal style="--reveal-delay: 120ms">
+      <figure class="diagram self-center" data-reveal style="--reveal-delay: 120ms">
         <svg
           viewBox="0 0 520 400"
           class="h-auto w-full max-w-xl"
@@ -47,35 +47,39 @@ const d = c.diagram;
           </defs>
 
           <!-- Livello 1: Tariffa -->
-          <g>
+          <g class="node" style="--d: 0ms">
             <rect x="170" y="16" width="180" height="64" rx="12" fill="#1E3A8A" stroke="#3B82F6" stroke-width="1.5"></rect>
             <text x="260" y="41" text-anchor="middle" fill="#DBEAFE" font-size="11" font-weight="600" letter-spacing="1.5">1 · LIVELLO</text>
             <text x="260" y="63" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="700">{d.tariffa}</text>
           </g>
-          <line x1="260" y1="80" x2="260" y2="128" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></line>
-          <g>
+          <line class="draw" style="--d: 300ms" x1="260" y1="80" x2="260" y2="128" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></line>
+          <line class="pulse" x1="260" y1="80" x2="260" y2="126" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"></line>
+          <g class="node" style="--d: 500ms">
             <rect x="272" y="92" width="86" height="24" rx="12" fill="#10B981"></rect>
             <text x="315" y="108" text-anchor="middle" fill="#0F172A" font-size="11.5" font-weight="700">{d.condizioni}</text>
           </g>
 
           <!-- Livello 2: Convenzione -->
-          <g>
+          <g class="node" style="--d: 700ms">
             <rect x="150" y="132" width="220" height="64" rx="12" fill="#FFFFFF"></rect>
             <text x="260" y="157" text-anchor="middle" fill="#475569" font-size="11" font-weight="600" letter-spacing="1.5">2 · LIVELLO</text>
             <text x="260" y="179" text-anchor="middle" fill="#0F172A" font-size="18" font-weight="700">{d.convenzione}</text>
           </g>
 
           <!-- Rami verso le istanze -->
-          <path d="M260 196 V 236 H 90 V 276" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></path>
-          <path d="M260 196 V 276" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></path>
-          <path d="M260 196 V 236 H 430 V 276" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></path>
+          <path class="draw" style="--d: 1000ms" d="M260 196 V 236 H 90 V 276" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></path>
+          <path class="draw" style="--d: 1000ms" d="M260 196 V 276" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></path>
+          <path class="draw" style="--d: 1000ms" d="M260 196 V 236 H 430 V 276" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></path>
+          <path class="pulse" style="--d: 300ms" d="M260 196 V 236 H 90 V 274" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"></path>
+          <path class="pulse" style="--d: 600ms" d="M260 196 V 274" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"></path>
+          <path class="pulse" style="--d: 900ms" d="M260 196 V 236 H 430 V 274" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"></path>
 
           <!-- Livello 3: Istanze -->
           {
             d.istanze.map((name, i) => {
               const cx = [90, 260, 430][i];
               return (
-                <g>
+                <g class="node" style={`--d: ${1500 + i * 160}ms`}>
                   <rect x={cx - 70} y="280" width="140" height="92" rx="12" fill="#172554" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" />
                   <text x={cx} y="305" text-anchor="middle" fill="#94A3B8" font-size="11" font-weight="600" letter-spacing="1.5">
                     3 · {d.istanzaSub.toUpperCase()}
@@ -86,6 +90,8 @@ const d = c.diagram;
                   {/* moduli accesi: tre "led" di cui un numero diverso attivo */}
                   {[0, 1, 2].map((k) => (
                     <rect
+                      class="led"
+                      style={`--d: ${2000 + i * 160 + k * 180}ms`}
                       x={cx - 28 + k * 20}
                       y="346"
                       width="16"
@@ -108,8 +114,8 @@ const d = c.diagram;
     <div class="mt-16 grid gap-4 lg:grid-cols-2" data-reveal>
       {
         c.cases.map((k) => (
-          <div class="rounded-card border border-white/10 bg-white/[0.04] p-6 lg:p-8">
-            <span class="icon-chip !bg-white/10 !text-green-500">
+          <div class="group rounded-card border border-white/10 bg-white/[0.04] p-6 transition-colors hover:border-green-500/40 hover:bg-white/[0.07] lg:p-8">
+            <span class="icon-chip !bg-white/10 !text-green-500 transition-transform group-hover:-translate-y-0.5 group-hover:!bg-green-500 group-hover:!text-navy-900">
               <Icon name={k.icon as any} class="h-6 w-6" />
             </span>
             <h3 class="mt-5 text-h3 text-white">{k.title}</h3>

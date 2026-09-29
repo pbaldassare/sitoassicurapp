@@ -6,16 +6,33 @@ const m = h.mockup;
 const companies = [...site.rates.base, ...site.rates.convention];
 const conventionSet = new Set(site.rates.convention);
 // Duplico la lista per il marquee continuo (traslazione -50%)
-const tiles = [...companies, ...companies];
+const half = Math.ceil(companies.length / 2);
+const rowA = [...companies.slice(0, half), ...companies.slice(0, half)];
+const rowB = [...companies.slice(half), ...companies.slice(half)];
+// Durata dell'"interrogazione" nel mockup: fino all'arrivo dell'ultima quotazione
+const scanMs = 1100 + m.rows.length * 380;
+// Larghezza delle barre "premio" (solo decorativa, nessun importo)
+const gaps = [22, 38, 30, 46, 26, 34];
 ---
 
 <section class="relative isolate overflow-hidden bg-navy-900 text-white" aria-labelledby="hero-title">
+  <div class="aurora -z-10" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
   <div class="hero-grid-bg absolute inset-0 -z-10" aria-hidden="true"></div>
 
   <div class="container-content grid items-center gap-12 pt-14 pb-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pt-24 lg:pb-16">
     <div data-reveal>
       <p class="eyebrow !text-blue-100/90">{h.eyebrow}</p>
-      <h1 id="hero-title" class="mt-5 text-[2.25rem] leading-[2.75rem] font-bold tracking-[-0.02em] text-white sm:text-h1 lg:text-display">{h.title}</h1>
+      <h1 id="hero-title" class="mt-5 text-[2.25rem] leading-[2.75rem] font-bold tracking-[-0.02em] text-white sm:text-h1 sm:leading-[3.25rem] lg:text-display lg:leading-[4rem]">
+        {h.title.includes(h.highlight) ? (
+          <>
+            {h.title.split(h.highlight)[0]}
+            <span class="text-gradient">{h.highlight}</span>
+            {h.title.split(h.highlight)[1]}
+          </>
+        ) : (
+          h.title
+        )}
+      </h1>
       <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-400 lg:text-[1.1875rem]">{h.subtitle}</p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
         <a href={h.ctaPrimary.href} class="btn btn-green">
@@ -28,7 +45,7 @@ const tiles = [...companies, ...companies];
 
     <!-- Mockup schematico della schermata preventivo: le quotazioni arrivano una alla volta -->
     <figure class="w-full max-w-lg justify-self-center lg:justify-self-end" data-reveal style="--reveal-delay: 120ms">
-      <div class="rounded-card border border-white/10 bg-white text-navy-900 shadow-card">
+      <div class="glow-card tilt rounded-card border border-white/10 bg-white text-navy-900 shadow-card">
         <div class="flex items-center justify-between border-b border-slate-200 px-5 py-3.5">
           <div class="flex items-center gap-2">
             <span class="h-2.5 w-2.5 rounded-full bg-slate-200" aria-hidden="true"></span>
@@ -59,6 +76,7 @@ const tiles = [...companies, ...companies];
         </div>
 
         <div class="mt-4 px-5">
+          <div class="scan-bar mb-3 rounded-pill" style={`--scan-duration: ${scanMs}ms`} aria-hidden="true"></div>
           <div class="flex items-center justify-between text-eyebrow uppercase text-slate-600">
             <span>{m.columns[0]}</span><span>{m.columns[1]}</span>
           </div>
@@ -73,7 +91,9 @@ const tiles = [...companies, ...companies];
                     <span class="text-[0.9375rem] font-semibold">{row.company}</span>
                   </span>
                   <span class="flex items-center gap-2">
-                    <span class="h-2.5 w-14 rounded-pill bg-slate-200" aria-hidden="true" />
+                    <span class="premio-bar h-2.5 w-16 rounded-pill" style={`--gap: ${gaps[i % gaps.length]}%; --delay: ${1100 + i * 380 + 250}ms`} aria-hidden="true">
+                      <i />
+                    </span>
                     <span class="rounded-pill bg-green-100 px-2 py-0.5 text-[0.6875rem] font-semibold text-green-700">
                       {m.priceLabel}
                     </span>
@@ -98,25 +118,27 @@ const tiles = [...companies, ...companies];
     <p class="mb-4 text-small text-slate-400">{h.marqueeLabel}</p>
     <div
       class="marquee relative -mx-5 overflow-hidden sm:-mx-6 lg:-mx-8 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
-      style={`--marquee-duration: ${companies.length * 3.2}s`}
+      style={`--marquee-duration: ${half * 3.6}s`}
     >
-      <ul class="marquee-track px-5" aria-label="Compagnie">
-        {
-          tiles.map((name, i) => (
-            <li
-              aria-hidden={i >= companies.length ? 'true' : undefined}
-              class="flex h-12 shrink-0 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 text-[0.9375rem] font-semibold tracking-tight whitespace-nowrap text-white/90"
-            >
-              {name}
-              {conventionSet.has(name) && (
-                <span class="rounded-pill bg-green-500/15 px-2 py-0.5 text-[0.6875rem] font-semibold text-green-500">
-                  {site.rates.conventionLabel}
-                </span>
-              )}
-            </li>
-          ))
-        }
-      </ul>
+      {
+        [rowA, rowB].map((row, r) => (
+          <ul class:list={['marquee-track px-5', r === 1 && 'reverse mt-3']} aria-label={r === 0 ? 'Compagnie' : undefined} aria-hidden={r === 1 ? undefined : undefined}>
+            {row.map((name, i) => (
+              <li
+                aria-hidden={i >= row.length / 2 ? 'true' : undefined}
+                class="flex h-12 shrink-0 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 text-[0.9375rem] font-semibold tracking-tight whitespace-nowrap text-white/90 transition-colors hover:border-green-500/50 hover:bg-white/[0.08]"
+              >
+                {name}
+                {conventionSet.has(name) && (
+                  <span class="rounded-pill bg-green-500/15 px-2 py-0.5 text-[0.6875rem] font-semibold text-green-500">
+                    {site.rates.conventionLabel}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        ))
+      }
     </div>
   </div>
 </section>

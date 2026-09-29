@@ -443,3 +443,555 @@ details[open] .chevron {
 .site-header.is-scrolled {
   box-shadow: 0 1px 0 var(--color-slate-200);
 }
+
+/* =========================================================================
+   Livello "effetti": atmosfera, gradienti, micro-interazioni.
+   Tutto quello che si muove è dentro motion-ok (prefers-reduced-motion).
+   ========================================================================= */
+
+/* Barra di avanzamento lettura (scroll-driven, progressive enhancement) */
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 60;
+  transform-origin: left;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--color-green-500), var(--color-blue-500));
+  pointer-events: none;
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: grow-x linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* Aurora: tre bagliori sfocati che si muovono lentamente dietro l'hero */
+.aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aurora span {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.55;
+  will-change: transform;
+}
+.aurora .a1 {
+  width: 42rem;
+  height: 42rem;
+  left: -12rem;
+  top: -14rem;
+  background: radial-gradient(circle, var(--color-navy-700) 0%, transparent 65%);
+  opacity: 0.9;
+}
+.aurora .a2 {
+  width: 34rem;
+  height: 34rem;
+  right: -8rem;
+  top: 4rem;
+  background: radial-gradient(circle, var(--color-blue-500) 0%, transparent 65%);
+  opacity: 0.4;
+}
+.aurora .a3 {
+  width: 26rem;
+  height: 26rem;
+  left: 36%;
+  bottom: -10rem;
+  background: radial-gradient(circle, var(--color-green-500) 0%, transparent 65%);
+  opacity: 0.3;
+}
+@keyframes drift-1 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6rem, 3rem, 0) scale(1.08);
+  }
+}
+@keyframes drift-2 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-5rem, 4rem, 0) scale(0.94);
+  }
+}
+@keyframes drift-3 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(3rem, -3rem, 0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .aurora .a1 {
+    animation: drift-1 22s ease-in-out infinite;
+  }
+  .aurora .a2 {
+    animation: drift-2 26s ease-in-out infinite;
+  }
+  .aurora .a3 {
+    animation: drift-3 30s ease-in-out infinite;
+  }
+}
+
+/* Testo a gradiente verde → blu (una frase sola per sezione) */
+.text-gradient {
+  background: linear-gradient(92deg, var(--color-green-500) 0%, #34d399 35%, var(--color-blue-500) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 100%;
+}
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .text-gradient {
+    animation: gradient-shift 8s ease-in-out infinite;
+  }
+}
+
+/* Bagliore sotto la card del mockup (ombre colorate, così il bianco resta opaco) */
+.glow-card {
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.08),
+    0 30px 80px -24px color-mix(in oklab, var(--color-blue-500) 70%, transparent),
+    0 12px 48px -12px color-mix(in oklab, var(--color-green-500) 45%, transparent);
+}
+
+/* Tilt 3D del mockup (solo pointer fine, JS imposta --rx / --ry) */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .tilt {
+    transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 300ms var(--ease-out-soft);
+    transform-style: preserve-3d;
+  }
+}
+
+/* Mockup: barra di scansione durante l'interrogazione e barre "premio" che si riempiono */
+@keyframes scan {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  85% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+.scan-bar {
+  height: 3px;
+  transform-origin: left;
+  transform: scaleX(1);
+  background: linear-gradient(90deg, var(--color-blue-500), var(--color-green-500));
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scan-bar {
+    animation: scan var(--scan-duration, 3s) linear forwards;
+  }
+}
+@keyframes fill-bar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.premio-bar {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-slate-100);
+}
+.premio-bar > i {
+  position: absolute;
+  inset: 0;
+  right: var(--gap, 30%);
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-blue-500), var(--color-green-500));
+  transform-origin: left;
+}
+.premio-bar > i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.45), transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .premio-bar > i {
+    animation: fill-bar 700ms var(--ease-out-soft) both;
+    animation-delay: var(--delay, 0ms);
+  }
+  .premio-bar > i::after {
+    animation: shimmer 1.6s ease-in-out infinite;
+    animation-delay: var(--delay, 0ms);
+  }
+}
+
+/* Marquee in due file, direzioni opposte */
+.marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+/* Sheen sui pulsanti pieni */
+.btn-primary,
+.btn-green {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-primary::after,
+.btn-green::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn-primary:hover::after,
+  .btn-green:hover::after {
+    transition: transform 650ms var(--ease-out-soft);
+    transform: translateX(120%);
+  }
+}
+.btn-green {
+  box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-green-500) 45%, transparent);
+}
+.btn-green:hover {
+  box-shadow: 0 10px 30px -10px color-mix(in oklab, var(--color-green-500) 70%, transparent);
+}
+
+/* Card con bordo a gradiente in hover e chip icona che si "accende" */
+.card-glow {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--color-white), var(--color-white)) padding-box,
+    linear-gradient(var(--color-slate-200), var(--color-slate-200)) border-box;
+}
+.card-glow:hover {
+  background:
+    linear-gradient(var(--color-white), var(--color-white)) padding-box,
+    linear-gradient(135deg, var(--color-blue-500), var(--color-green-500)) border-box;
+  border-color: transparent;
+}
+.card-glow.card-glow-tinted {
+  background:
+    linear-gradient(var(--color-slate-50), var(--color-slate-50)) padding-box,
+    linear-gradient(var(--color-slate-200), var(--color-slate-200)) border-box;
+}
+.card-glow.card-glow-tinted:hover {
+  background:
+    linear-gradient(var(--color-slate-50), var(--color-slate-50)) padding-box,
+    linear-gradient(135deg, var(--color-blue-500), var(--color-green-500)) border-box;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card:hover {
+    transform: translateY(-3px);
+  }
+}
+.icon-chip {
+  transition:
+    background-color var(--duration-micro) ease-out,
+    color var(--duration-micro) ease-out,
+    transform var(--duration-micro) ease-out,
+    box-shadow var(--duration-micro) ease-out;
+}
+.card:hover .icon-chip {
+  background: var(--color-navy-700);
+  color: var(--color-white);
+  box-shadow: 0 8px 20px -8px color-mix(in oklab, var(--color-navy-700) 70%, transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card:hover .icon-chip {
+    transform: translateY(-2px) rotate(-4deg);
+  }
+}
+
+/* Eyebrow: il trattino verde si allunga all'entrata */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] .eyebrow::before {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 600ms var(--ease-out-soft) 150ms;
+  }
+  html.js [data-reveal].is-visible .eyebrow::before {
+    transform: scaleX(1);
+  }
+}
+
+/* Puntino "live" e pulsazione del badge freccia (prima → dopo) */
+@keyframes ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-green-500) 55%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ring-pulse {
+    animation: ring 2.2s ease-out infinite;
+  }
+}
+
+/* Tessere tariffe: puntino verde che pulsa in hover, filtro con fade */
+@media (prefers-reduced-motion: no-preference) {
+  .card:hover .dot-live {
+    animation: pulse-dot 1.2s ease-in-out infinite;
+  }
+  [data-rates-grid] li {
+    transition:
+      opacity 250ms var(--ease-out-soft),
+      transform 250ms var(--ease-out-soft),
+      box-shadow var(--duration-micro) ease-out,
+      border-color var(--duration-micro) ease-out;
+  }
+  [data-rates-grid] li.is-leaving {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+/* Schema SVG collaborazioni: i tratti si disegnano all'entrata, un impulso scorre lungo le linee */
+.diagram .draw {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+}
+.diagram .node {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.diagram .led {
+  opacity: 0;
+}
+.diagram.is-visible .draw,
+html:not(.js) .diagram .draw {
+  stroke-dashoffset: 0;
+}
+.diagram.is-visible .node,
+html:not(.js) .diagram .node {
+  opacity: 1;
+  transform: none;
+}
+.diagram.is-visible .led,
+html:not(.js) .diagram .led {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .diagram .draw {
+    transition: stroke-dashoffset 1100ms var(--ease-out-soft);
+    transition-delay: var(--d, 0ms);
+  }
+  .diagram .node {
+    transition:
+      opacity 500ms var(--ease-out-soft),
+      transform 500ms var(--ease-out-soft);
+    transition-delay: var(--d, 0ms);
+  }
+  .diagram .led {
+    transition: opacity 300ms ease-out;
+    transition-delay: var(--d, 0ms);
+  }
+  .diagram .pulse {
+    stroke-dasharray: 6 26;
+    animation: dash-flow 1.8s linear infinite;
+    animation-delay: var(--d, 0ms);
+  }
+}
+@keyframes dash-flow {
+  from {
+    stroke-dashoffset: 64;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .diagram .draw {
+    stroke-dashoffset: 0;
+  }
+  .diagram .node,
+  .diagram .led {
+    opacity: 1;
+    transform: none;
+  }
+  .diagram .pulse {
+    display: none;
+  }
+}
+
+/* Timeline: la linea si riempie di verde e i cerchi "scattano" */
+.timeline::after {
+  content: '';
+  position: absolute;
+  left: 1.375rem;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-green-500), var(--color-blue-500));
+  transform: scaleY(0);
+  transform-origin: top;
+}
+@media (min-width: 64rem) {
+  .timeline::after {
+    left: 0;
+    right: 0;
+    top: 1.375rem;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-green-500), var(--color-blue-500));
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+}
+.timeline.is-visible::after,
+html:not(.js) .timeline::after {
+  transform: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .timeline::after {
+    transition: transform 1600ms var(--ease-out-soft) 200ms;
+  }
+  .timeline .step-dot {
+    transition:
+      transform 400ms var(--ease-out-soft),
+      background-color 300ms ease-out,
+      color 300ms ease-out,
+      border-color 300ms ease-out;
+    transition-delay: var(--d, 0ms);
+    transform: scale(0.6);
+  }
+  .timeline.is-visible .step-dot {
+    transform: scale(1);
+  }
+}
+.timeline.is-visible .step-dot,
+html:not(.js) .timeline .step-dot {
+  background: var(--color-navy-700);
+  color: var(--color-white);
+  border-color: var(--color-navy-700);
+}
+.timeline li:hover .step-dot {
+  background: var(--color-green-500);
+  border-color: var(--color-green-500);
+  color: var(--color-navy-900);
+}
+
+/* FAQ: apertura animata (Chrome 131+, altrove apre subito) */
+@supports (interpolate-size: allow-keywords) {
+  details.faq-item {
+    interpolate-size: allow-keywords;
+  }
+  details.faq-item::details-content {
+    height: 0;
+    overflow: clip;
+    transition:
+      height 300ms var(--ease-out-soft),
+      content-visibility 300ms allow-discrete;
+  }
+  details.faq-item[open]::details-content {
+    height: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  details.faq-item::details-content {
+    transition: none;
+  }
+}
+
+/* Header: linea a gradiente quando si scorre; link attivo (scroll-spy) */
+.site-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-green-500), var(--color-blue-500));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 400ms var(--ease-out-soft);
+}
+.site-header.is-scrolled::after {
+  transform: scaleX(1);
+}
+.site-header {
+  position: sticky;
+}
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.45rem;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-green-500);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 250ms var(--ease-out-soft);
+}
+.nav-link[aria-current='true'] {
+  color: var(--color-navy-900);
+}
+.nav-link[aria-current='true']::after,
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Contatori (trust bar) */
+.count {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sezione scura con bagliore */
+.dark-glow {
+  background:
+    radial-gradient(60rem 30rem at 85% 0%, color-mix(in oklab, var(--color-navy-700) 65%, transparent), transparent 60%),
+    radial-gradient(40rem 24rem at 0% 100%, color-mix(in oklab, var(--color-green-500) 18%, transparent), transparent 60%),
+    var(--color-navy-900);
+}

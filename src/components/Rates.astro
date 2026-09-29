@@ -46,7 +46,7 @@ const total = tiles.length;
         tiles.map((t, i) => (
           <li
             class:list={[
-              'card relative flex min-h-24 flex-col justify-between p-4',
+              'card card-glow relative flex min-h-24 flex-col justify-between p-4',
               t.type === 'convention' && 'border-dashed bg-slate-50/60',
             ]}
             data-type={t.type}
@@ -62,7 +62,7 @@ const total = tiles.length;
                 </>
               ) : (
                 <>
-                  <span class="h-1.5 w-1.5 rounded-full bg-green-500" aria-hidden="true" />
+                  <span class="dot-live h-1.5 w-1.5 rounded-full bg-green-500" aria-hidden="true" />
                   <span class="text-slate-600">{r.baseLabel}</span>
                 </>
               )}
@@ -92,10 +92,25 @@ const total = tiles.length;
       const id = btn.dataset.filter;
       buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
       let n = 0;
-      tiles.forEach((t) => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      tiles.forEach((t, i) => {
         const show = id === 'all' || t.dataset.type === id;
-        t.hidden = !show;
         if (show) n++;
+        if (reduce) {
+          t.hidden = !show;
+          return;
+        }
+        if (!show) {
+          t.classList.add('is-leaving');
+          setTimeout(() => {
+            t.hidden = true;
+          }, 250);
+        } else {
+          t.hidden = false;
+          t.classList.add('is-leaving');
+          // rientro con leggero stagger
+          setTimeout(() => t.classList.remove('is-leaving'), 20 + (i % 10) * 25);
+        }
       });
       if (count) count.textContent = label.replace('{n}', String(n));
     })

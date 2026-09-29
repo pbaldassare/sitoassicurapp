@@ -9,12 +9,14 @@ const t = site.trust;
     <ul class="grid grid-cols-2 divide-slate-200 lg:grid-cols-4 lg:divide-x">
       {
         t.items.map((item, i) => (
-          <li class="flex items-start gap-4 py-6 lg:px-8 lg:py-8 lg:first:pl-0 lg:last:pr-0" data-reveal style={`--reveal-delay: ${i * 60}ms`}>
-            <span class="icon-chip">
+          <li class="group flex items-start gap-4 py-6 lg:px-8 lg:py-8 lg:first:pl-0 lg:last:pr-0" data-reveal style={`--reveal-delay: ${i * 60}ms`}>
+            <span class="icon-chip group-hover:bg-navy-700 group-hover:text-white">
               <Icon name={item.icon as any} class="h-6 w-6" />
             </span>
             <div>
-              <p class="text-h3 leading-tight font-bold text-navy-900">{item.value}</p>
+              <p class="text-h3 leading-tight font-bold text-navy-900">
+                {/^\d+$/.test(item.value) ? <span class="count" data-count={item.value}>0</span> : item.value}
+              </p>
               <p class="mt-1 text-small text-slate-600">{item.label}</p>
             </div>
           </li>

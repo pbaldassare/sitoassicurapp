@@ -12,11 +12,11 @@ const o = site.onboarding;
       <p class="mt-4 text-slate-600">{o.intro}</p>
     </div>
 
-    <ol class="timeline relative mt-12 grid gap-8 lg:grid-cols-6 lg:gap-6">
+    <ol class="timeline relative mt-12 grid gap-8 lg:grid-cols-6 lg:gap-6" data-reveal>
       {
         o.steps.map((s, i) => (
           <li class="relative flex gap-4 lg:flex-col lg:gap-5" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
-            <span class="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-navy-700 bg-white text-navy-700">
+            <span class="step-dot relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-navy-700 bg-white text-navy-700" style={`--d: ${200 + i * 220}ms`}>
               <Icon name={s.icon as any} class="h-5 w-5" />
             </span>
             <div>

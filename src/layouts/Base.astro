@@ -99,6 +99,7 @@ const jsonLd = [
       class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-pill focus:bg-navy-900 focus:px-4 focus:py-2 focus:text-white"
       >{site.nav.skipLink}</a
     >
+    <div class="scroll-progress" aria-hidden="true" data-scroll-progress></div>
     <Header minimal={minimal} />
     <main id="main" class="flex-1">
       <slot />
@@ -124,6 +125,85 @@ const jsonLd = [
           { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
         );
         els.forEach((el) => io.observe(el));
+      }
+
+      // Barra di avanzamento: fallback JS dove manca animation-timeline
+      const bar = document.querySelector<HTMLElement>('[data-scroll-progress]');
+      if (bar && !CSS.supports('animation-timeline: scroll()')) {
+        const update = () => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          bar.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+        };
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+      }
+
+      // Contatori: i numeri salgono quando entrano in vista
+      const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+      if (counters.length) {
+        const run = (el: HTMLElement) => {
+          const target = Number(el.dataset.count);
+          if (reduce || !Number.isFinite(target)) {
+            el.textContent = String(target);
+            return;
+          }
+          const start = performance.now();
+          const dur = 1100;
+          const tick = (t: number) => {
+            const p = Math.min(1, (t - start) / dur);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = String(Math.round(target * eased));
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        };
+        const cio = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                run(e.target as HTMLElement);
+                cio.unobserve(e.target);
+              }
+            }
+          },
+          { threshold: 0.4 }
+        );
+        counters.forEach((c) => cio.observe(c));
+      }
+
+      // Tilt 3D leggero sul mockup (solo pointer fine)
+      const tilt = document.querySelector<HTMLElement>('.tilt');
+      if (tilt && !reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        const parent = tilt.parentElement ?? tilt;
+        parent.addEventListener('pointermove', (e) => {
+          const r = tilt.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          tilt.style.setProperty('--ry', `${(x * 8).toFixed(2)}deg`);
+          tilt.style.setProperty('--rx', `${(-y * 8).toFixed(2)}deg`);
+        });
+        parent.addEventListener('pointerleave', () => {
+          tilt.style.setProperty('--ry', '0deg');
+          tilt.style.setProperty('--rx', '0deg');
+        });
+      }
+
+      // Scroll-spy: evidenzia la voce di menu della sezione visibile
+      const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.nav-link[href^="#"]'));
+      const targets = links.map((l) => document.querySelector<HTMLElement>(l.getAttribute('href')!)).filter(Boolean) as HTMLElement[];
+      if (targets.length && 'IntersectionObserver' in window) {
+        const spy = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                links.forEach((l) => l.setAttribute('aria-current', l.getAttribute('href') === '#' + e.target.id ? 'true' : 'false'));
+              }
+            }
+          },
+          { rootMargin: '-40% 0px -55% 0px' }
+        );
+        targets.forEach((t) => spy.observe(t));
       }
     </script>
   </body>

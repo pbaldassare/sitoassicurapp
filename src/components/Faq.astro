@@ -22,7 +22,7 @@ const faqLd = {
     <div class="divide-y divide-slate-200 rounded-card border border-slate-200 bg-white" data-reveal>
       {
         f.items.map((item) => (
-          <details class="group" name="faq">
+          <details class="faq-item group" name="faq">
             <summary class="flex min-h-14 cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-navy-900 hover:bg-slate-50 lg:px-6">
               <span>{item.q}</span>
               <Icon name="chevron-down" class="chevron h-5 w-5 shrink-0 text-slate-600" />

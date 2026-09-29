@@ -9,13 +9,31 @@
   },
   "nav": {
     "items": [
-      { "label": "Funzionalità", "href": "#funzionalita" },
-      { "label": "Tariffe", "href": "#tariffe" },
-      { "label": "Collaborazioni", "href": "#collaborazioni" },
-      { "label": "Come si parte", "href": "#come-si-parte" },
-      { "label": "FAQ", "href": "#faq" }
+      {
+        "label": "Funzionalità",
+        "href": "#funzionalita"
+      },
+      {
+        "label": "Tariffe",
+        "href": "#tariffe"
+      },
+      {
+        "label": "Collaborazioni",
+        "href": "#collaborazioni"
+      },
+      {
+        "label": "Come si parte",
+        "href": "#come-si-parte"
+      },
+      {
+        "label": "FAQ",
+        "href": "#faq"
+      }
     ],
-    "cta": { "label": "Richiedi una demo", "href": "#contatti" },
+    "cta": {
+      "label": "Richiedi una demo",
+      "href": "#contatti"
+    },
     "menuOpen": "Apri il menu",
     "menuClose": "Chiudi il menu",
     "skipLink": "Vai al contenuto"
@@ -24,8 +42,14 @@
     "eyebrow": "Per agenzie e broker assicurativi",
     "title": "Preventivi su più compagnie, polizze e provvigioni. Tutto in un posto.",
     "subtitle": "Assicurapp è la piattaforma web della tua agenzia: inserisci la targa, confronta le quotazioni delle compagnie, emetti e gestisci le polizze. Un accesso solo, con il tuo nome e il tuo logo.",
-    "ctaPrimary": { "label": "Richiedi una demo", "href": "#contatti" },
-    "ctaSecondary": { "label": "Vedi le tariffe", "href": "#tariffe" },
+    "ctaPrimary": {
+      "label": "Richiedi una demo",
+      "href": "#contatti"
+    },
+    "ctaSecondary": {
+      "label": "Vedi le tariffe",
+      "href": "#tariffe"
+    },
     "mockup": {
       "title": "Nuovo preventivo",
       "plateLabel": "Targa",
@@ -33,28 +57,66 @@
       "fetched": "Dati recuperati da ANIA",
       "vehicle": "Fiat Panda 1.2 · 2019",
       "holder": "Contraente compilato",
-      "columns": ["Compagnia", "Premio"],
+      "columns": [
+        "Compagnia",
+        "Premio"
+      ],
       "status": "Interrogazione in corso",
       "done": "6 quotazioni pronte",
       "rows": [
-        { "company": "ConTe", "state": "ok" },
-        { "company": "Quixa", "state": "ok" },
-        { "company": "Groupama", "state": "ok" },
-        { "company": "Prima.it", "state": "ok" },
-        { "company": "Genialpiù", "state": "ok" },
-        { "company": "Verti Professional", "state": "ok" }
+        {
+          "company": "ConTe",
+          "state": "ok"
+        },
+        {
+          "company": "Quixa",
+          "state": "ok"
+        },
+        {
+          "company": "Groupama",
+          "state": "ok"
+        },
+        {
+          "company": "Prima.it",
+          "state": "ok"
+        },
+        {
+          "company": "Genialpiù",
+          "state": "ok"
+        },
+        {
+          "company": "Verti Professional",
+          "state": "ok"
+        }
       ],
       "priceLabel": "quotazione",
       "note": "Schermata schematica a scopo illustrativo. Nessun premio reale."
     },
-    "marqueeLabel": "Compagnie interrogabili dalla piattaforma"
+    "marqueeLabel": "Compagnie interrogabili dalla piattaforma",
+    "highlight": "Tutto in un posto."
   },
   "trust": {
     "items": [
-      { "value": "15", "label": "tariffe base", "icon": "layers" },
-      { "value": "5", "label": "tariffe in convenzione", "icon": "handshake" },
-      { "value": "ANIA", "label": "preventivazione automatica da targa", "icon": "search" },
-      { "value": "Stripe + bonifico", "label": "pagamenti dal cliente", "icon": "credit-card" }
+      {
+        "value": "15",
+        "label": "tariffe base",
+        "icon": "layers"
+      },
+      {
+        "value": "5",
+        "label": "tariffe in convenzione",
+        "icon": "handshake"
+      },
+      {
+        "value": "ANIA",
+        "label": "preventivazione automatica da targa",
+        "icon": "search"
+      },
+      {
+        "value": "Stripe + bonifico",
+        "label": "pagamenti dal cliente",
+        "icon": "credit-card"
+      }
     ]
   },
   "problem": {
@@ -195,9 +257,18 @@
     "title": "Le compagnie che puoi interrogare.",
     "intro": "Le tariffe base sono disponibili per ogni agenzia. Quelle in convenzione arrivano tramite accordi dedicati. Per la maggior parte delle tariffe base la copertura riguarda auto, autocarri e moto, con garanzie accessorie incluse.",
     "filters": [
-      { "id": "all", "label": "Tutte" },
-      { "id": "base", "label": "Base" },
-      { "id": "convention", "label": "In convenzione" }
+      {
+        "id": "all",
+        "label": "Tutte"
+      },
+      {
+        "id": "base",
+        "label": "Base"
+      },
+      {
+        "id": "convention",
+        "label": "In convenzione"
+      }
     ],
     "baseLabel": "Tariffa base",
     "conventionLabel": "In convenzione",
@@ -218,7 +289,13 @@
       "HDI",
       "Zurich"
     ],
-    "convention": ["Allianz", "Generali Cargo", "Europ Assistance", "Lloyd's", "Net Insurance"],
+    "convention": [
+      "Allianz",
+      "Generali Cargo",
+      "Europ Assistance",
+      "Lloyd's",
+      "Net Insurance"
+    ],
     "countLabel": "{n} tariffe",
     "note": "Per interrogare una tariffa serve l'accesso (utente e password) al portale della compagnia. Senza credenziali la tariffa non produce offerte.",
     "disclaimer": "I nomi delle compagnie sono riportati a solo scopo identificativo e appartengono ai rispettivi titolari."
@@ -256,12 +333,19 @@
         "text": "Puoi portare Assicurapp ai tuoi collaboratori, ognuno con la propria istanza, con il proprio nome e dominio, e vedere le provvigioni di rete."
       }
     ],
-    "cta": { "label": "Proponi una collaborazione", "href": "#contatti" },
+    "cta": {
+      "label": "Proponi una collaborazione",
+      "href": "#contatti"
+    },
     "diagram": {
       "title": "Schema a tre livelli: la tariffa diventa convenzione, la convenzione si accende su una o più istanze",
       "tariffa": "Tariffa",
       "convenzione": "Convenzione",
-      "istanze": ["Istanza A", "Istanza B", "Istanza C"],
+      "istanze": [
+        "Istanza A",
+        "Istanza B",
+        "Istanza C"
+      ],
       "istanzaSub": "agenzia",
       "condizioni": "+ condizioni"
     }
@@ -347,12 +431,34 @@
     "title": "Vediamola insieme.",
     "intro": "Ti mostriamo la piattaforma con un preventivo reale sulle compagnie che usi. Scrivici e ti richiamiamo.",
     "fields": {
-      "name": { "label": "Nome e cognome", "placeholder": "Mario Rossi", "error": "Inserisci il tuo nome." },
-      "agency": { "label": "Agenzia", "placeholder": "Nome dell'agenzia o del broker", "error": "Inserisci il nome dell'agenzia." },
-      "email": { "label": "Email", "placeholder": "nome@agenzia.it", "error": "Inserisci un indirizzo email valido." },
-      "phone": { "label": "Telefono", "placeholder": "+39 ...", "error": "Inserisci un numero di telefono valido." },
-      "message": { "label": "Messaggio", "placeholder": "Raccontaci come lavori oggi e cosa vorresti vedere.", "error": "Scrivi almeno due parole." },
-      "collab": { "label": "Mi interessa una collaborazione (ho una convenzione o una rete di intermediari)" },
+      "name": {
+        "label": "Nome e cognome",
+        "placeholder": "Mario Rossi",
+        "error": "Inserisci il tuo nome."
+      },
+      "agency": {
+        "label": "Agenzia",
+        "placeholder": "Nome dell'agenzia o del broker",
+        "error": "Inserisci il nome dell'agenzia."
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "nome@agenzia.it",
+        "error": "Inserisci un indirizzo email valido."
+      },
+      "phone": {
+        "label": "Telefono",
+        "placeholder": "+39 ...",
+        "error": "Inserisci un numero di telefono valido."
+      },
+      "message": {
+        "label": "Messaggio",
+        "placeholder": "Raccontaci come lavori oggi e cosa vorresti vedere.",
+        "error": "Scrivi almeno due parole."
+      },
+      "collab": {
+        "label": "Mi interessa una collaborazione (ho una convenzione o una rete di intermediari)"
+      },
       "privacy": {
         "label": "Ho letto l'informativa privacy e acconsento al trattamento dei dati per essere ricontattato.",
         "linkLabel": "informativa privacy",
@@ -371,7 +477,11 @@
       "text": "Riprova tra qualche minuto oppure scrivici direttamente a"
     },
     "email": "[EMAIL AGENZIA — placeholder]",
-    "reassurance": ["Nessun impegno", "Nessun tracker di terze parti", "Risposta entro un giorno lavorativo"]
+    "reassurance": [
+      "Nessun impegno",
+      "Nessun tracker di terze parti",
+      "Risposta entro un giorno lavorativo"
+    ]
   },
   "footer": {
     "tagline": "La piattaforma web per agenzie e broker assicurativi.",
@@ -379,25 +489,52 @@
       {
         "title": "Sito",
         "links": [
-          { "label": "Funzionalità", "href": "#funzionalita" },
-          { "label": "Tariffe", "href": "#tariffe" },
-          { "label": "Collaborazioni", "href": "#collaborazioni" },
-          { "label": "Come si parte", "href": "#come-si-parte" },
-          { "label": "FAQ", "href": "#faq" }
+          {
+            "label": "Funzionalità",
+            "href": "#funzionalita"
+          },
+          {
+            "label": "Tariffe",
+            "href": "#tariffe"
+          },
+          {
+            "label": "Collaborazioni",
+            "href": "#collaborazioni"
+          },
+          {
+            "label": "Come si parte",
+            "href": "#come-si-parte"
+          },
+          {
+            "label": "FAQ",
+            "href": "#faq"
+          }
         ]
       },
       {
         "title": "Contatti",
         "links": [
-          { "label": "Richiedi una demo", "href": "#contatti" },
-          { "label": "Proponi una collaborazione", "href": "#contatti" }
+          {
+            "label": "Richiedi una demo",
+            "href": "#contatti"
+          },
+          {
+            "label": "Proponi una collaborazione",
+            "href": "#contatti"
+          }
         ]
       },
       {
         "title": "Legale",
         "links": [
-          { "label": "Privacy", "href": "/privacy" },
-          { "label": "Cookie", "href": "/privacy#cookie" }
+          {
+            "label": "Privacy",
+            "href": "/privacy"
+          },
+          {
+            "label": "Cookie",
+            "href": "/privacy#cookie"
+          }
         ]
       }
     ],
@@ -408,8 +545,14 @@
   "thanks": {
     "title": "Grazie, richiesta ricevuta.",
     "text": "Ti rispondiamo entro un giorno lavorativo dall'indirizzo dell'agenzia. Nel frattempo puoi guardare le tariffe disponibili o come si parte.",
-    "ctaHome": { "label": "Torna al sito", "href": "/" },
-    "ctaRates": { "label": "Vedi le tariffe", "href": "/#tariffe" },
+    "ctaHome": {
+      "label": "Torna al sito",
+      "href": "/"
+    },
+    "ctaRates": {
+      "label": "Vedi le tariffe",
+      "href": "/#tariffe"
+    },
     "metaTitle": "Grazie — Assicurapp"
   },
   "privacy": {
