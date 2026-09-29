@@ -1,0 +1,67 @@
+---
+import site from '@/content/site.it.json';
+import Icon from '@/components/Icon.astro';
+const f = site.features;
+---
+
+<section id="funzionalita" class="section scroll-mt-20 bg-white" aria-labelledby="features-title">
+  <div class="container-content">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow">{f.eyebrow}</p>
+      <h2 id="features-title" class="mt-4 text-h2 lg:text-[2.5rem] lg:leading-[3rem]">{f.title}</h2>
+      <p class="mt-4 text-slate-600">{f.intro}</p>
+    </div>
+
+    <!-- Bento: 8 blocchi. Su mobile ogni blocco è un accordion (<details>); da lg in su è sempre aperto. -->
+    <div class="mt-12 grid gap-4 lg:grid-cols-3" data-bento>
+      {
+        f.blocks.map((b, i) => (
+          <details
+            class:list={[
+              'card group flex flex-col p-0 open:shadow-card lg:open:shadow-none',
+              b.size === 'large' && 'lg:col-span-2 lg:bg-slate-50',
+            ]}
+            data-reveal
+            style={`--reveal-delay: ${(i % 4) * 70}ms`}
+            data-bento-item
+          >
+            <summary class="flex cursor-pointer items-center gap-4 p-5 select-none lg:cursor-default lg:p-6 lg:pb-3">
+              <span class="icon-chip">
+                <Icon name={b.icon as any} class="h-6 w-6" />
+              </span>
+              <h3 class="flex-1 text-h3">{b.title}</h3>
+              <Icon name="chevron-down" class="chevron h-5 w-5 text-slate-600 lg:hidden" />
+            </summary>
+            <div class="px-5 pb-5 lg:px-6 lg:pb-6">
+              <ul class:list={['check-list space-y-2.5 text-[0.9375rem] text-slate-600', b.size === 'large' && 'lg:mt-2 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:gap-y-3.5 lg:space-y-0 lg:text-base']}>
+                {b.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // Da lg (1024px) in su i blocchi sono sempre aperti; sotto, accordion (primo aperto).
+  const items = document.querySelectorAll<HTMLDetailsElement>('[data-bento-item]');
+  const mq = window.matchMedia('(min-width: 64rem)');
+  const apply = () => {
+    items.forEach((d, i) => {
+      d.open = mq.matches ? true : i === 0;
+      d.querySelector('summary')?.setAttribute('tabindex', mq.matches ? '-1' : '0');
+    });
+  };
+  apply();
+  mq.addEventListener('change', apply);
+  // Su desktop il click sul summary non deve chiudere il blocco
+  items.forEach((d) =>
+    d.querySelector('summary')?.addEventListener('click', (e) => {
+      if (mq.matches) e.preventDefault();
+    })
+  );
+</script>

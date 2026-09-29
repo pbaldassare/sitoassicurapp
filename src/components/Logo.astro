@@ -1,0 +1,25 @@
+---
+/** Logo inline (SVG da public/brand), così è nitido, senza richiesta extra e colorabile. */
+import fs from 'node:fs';
+import path from 'node:path';
+interface Props {
+  variant?: 'color' | 'white';
+  class?: string;
+  height?: number;
+}
+const { variant = 'color', class: className = '', height = 32 } = Astro.props;
+const file = variant === 'white' ? 'logo-white.svg' : 'logo.svg';
+const raw = fs.readFileSync(path.join(process.cwd(), 'public', 'brand', file), 'utf8');
+const meta = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'brand', 'logo-meta.json'), 'utf8'));
+const ratio = meta.wordmark.width / meta.wordmark.height;
+const width = Math.round(height * ratio);
+// Rimuove larghezza/altezza fisse e il title (l'etichetta la dà il link che lo contiene)
+const svg = raw
+  .replace(/width="[\d.]+" height="[\d.]+"/, `width="${width}" height="${height}"`)
+  .replace(/role="img" aria-labelledby="[^"]+"/, 'aria-hidden="true" focusable="false"')
+  .replace(/<title[^>]*>.*?<\/title>\s*/, '')
+  // id univoci per il clipPath quando il logo compare più volte nella pagina
+  .replaceAll(`${variant === 'white' ? 'apw' : 'ap'}-clip`, `${variant === 'white' ? 'apw' : 'ap'}-clip-${height}`);
+---
+
+<span class:list={['inline-flex shrink-0', className]} set:html={svg} />

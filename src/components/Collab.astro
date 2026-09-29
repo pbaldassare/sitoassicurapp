@@ -1,0 +1,129 @@
+---
+import site from '@/content/site.it.json';
+import Icon from '@/components/Icon.astro';
+const c = site.collab;
+const d = c.diagram;
+---
+
+<section id="collaborazioni" class="section scroll-mt-20 bg-navy-900 text-white" aria-labelledby="collab-title">
+  <div class="container-content">
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div data-reveal>
+        <p class="eyebrow !text-blue-100/90">{c.eyebrow}</p>
+        <h2 id="collab-title" class="mt-4 text-h2 text-white lg:text-[2.5rem] lg:leading-[3rem]">{c.title}</h2>
+        <p class="mt-4 text-slate-400">{c.intro}</p>
+
+        <ol class="mt-10 space-y-6">
+          {
+            c.levels.map((lvl) => (
+              <li class="flex gap-4">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 text-[0.9375rem] font-bold text-green-500">
+                  {lvl.n}
+                </span>
+                <div>
+                  <h3 class="text-h3 text-white">{lvl.name}</h3>
+                  <p class="mt-1 text-[0.9375rem] text-slate-400">{lvl.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <!-- Schema a tre livelli: tariffa → convenzione → istanze -->
+      <figure class="self-center" data-reveal style="--reveal-delay: 120ms">
+        <svg
+          viewBox="0 0 520 400"
+          class="h-auto w-full max-w-xl"
+          role="img"
+          aria-labelledby="collab-diagram-title"
+          font-family="inherit"
+        >
+          <title id="collab-diagram-title">{d.title}</title>
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#3B82F6"></path>
+            </marker>
+          </defs>
+
+          <!-- Livello 1: Tariffa -->
+          <g>
+            <rect x="170" y="16" width="180" height="64" rx="12" fill="#1E3A8A" stroke="#3B82F6" stroke-width="1.5"></rect>
+            <text x="260" y="41" text-anchor="middle" fill="#DBEAFE" font-size="11" font-weight="600" letter-spacing="1.5">1 · LIVELLO</text>
+            <text x="260" y="63" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="700">{d.tariffa}</text>
+          </g>
+          <line x1="260" y1="80" x2="260" y2="128" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></line>
+          <g>
+            <rect x="272" y="92" width="86" height="24" rx="12" fill="#10B981"></rect>
+            <text x="315" y="108" text-anchor="middle" fill="#0F172A" font-size="11.5" font-weight="700">{d.condizioni}</text>
+          </g>
+
+          <!-- Livello 2: Convenzione -->
+          <g>
+            <rect x="150" y="132" width="220" height="64" rx="12" fill="#FFFFFF"></rect>
+            <text x="260" y="157" text-anchor="middle" fill="#475569" font-size="11" font-weight="600" letter-spacing="1.5">2 · LIVELLO</text>
+            <text x="260" y="179" text-anchor="middle" fill="#0F172A" font-size="18" font-weight="700">{d.convenzione}</text>
+          </g>
+
+          <!-- Rami verso le istanze -->
+          <path d="M260 196 V 236 H 90 V 276" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></path>
+          <path d="M260 196 V 276" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></path>
+          <path d="M260 196 V 236 H 430 V 276" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"></path>
+
+          <!-- Livello 3: Istanze -->
+          {
+            d.istanze.map((name, i) => {
+              const cx = [90, 260, 430][i];
+              return (
+                <g>
+                  <rect x={cx - 70} y="280" width="140" height="92" rx="12" fill="#172554" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" />
+                  <text x={cx} y="305" text-anchor="middle" fill="#94A3B8" font-size="11" font-weight="600" letter-spacing="1.5">
+                    3 · {d.istanzaSub.toUpperCase()}
+                  </text>
+                  <text x={cx} y="329" text-anchor="middle" fill="#FFFFFF" font-size="17" font-weight="700">
+                    {name}
+                  </text>
+                  {/* moduli accesi: tre "led" di cui un numero diverso attivo */}
+                  {[0, 1, 2].map((k) => (
+                    <rect
+                      x={cx - 28 + k * 20}
+                      y="346"
+                      width="16"
+                      height="8"
+                      rx="4"
+                      fill={k <= (2 - i) % 3 ? '#10B981' : 'rgba(255,255,255,0.15)'}
+                    />
+                  ))}
+                </g>
+              );
+            })
+          }
+          <text x="260" y="394" text-anchor="middle" fill="#94A3B8" font-size="11.5">
+            Una piattaforma sola. Cambiano convenzioni e moduli accesi.
+          </text>
+        </svg>
+      </figure>
+    </div>
+
+    <div class="mt-16 grid gap-4 lg:grid-cols-2" data-reveal>
+      {
+        c.cases.map((k) => (
+          <div class="rounded-card border border-white/10 bg-white/[0.04] p-6 lg:p-8">
+            <span class="icon-chip !bg-white/10 !text-green-500">
+              <Icon name={k.icon as any} class="h-6 w-6" />
+            </span>
+            <h3 class="mt-5 text-h3 text-white">{k.title}</h3>
+            <p class="mt-2 text-slate-400">{k.text}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-10" data-reveal>
+      <a href={c.cta.href} class="btn btn-green">
+        {c.cta.label}
+        <Icon name="arrow-right" class="icon h-5 w-5" />
+      </a>
+    </div>
+  </div>
+</section>

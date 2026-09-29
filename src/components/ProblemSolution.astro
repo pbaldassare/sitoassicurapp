@@ -1,0 +1,44 @@
+---
+import site from '@/content/site.it.json';
+import Icon from '@/components/Icon.astro';
+const p = site.problem;
+const pairs = p.before.items.map((b, i) => ({ before: b, after: p.after.items[i] }));
+---
+
+<section class="section bg-slate-50" aria-labelledby="problem-title">
+  <div class="container-content">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow">{p.eyebrow}</p>
+      <h2 id="problem-title" class="mt-4 text-h2 lg:text-[2.5rem] lg:leading-[3rem]">{p.title}</h2>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-3">
+      {
+        pairs.map((pair, i) => (
+          <div class="card flex flex-col overflow-hidden" data-reveal style={`--reveal-delay: ${i * 90}ms`}>
+            <div class="flex-1 p-6">
+              <p class="flex items-center gap-2 text-eyebrow uppercase text-slate-600">
+                <Icon name="x-circle" class="h-4 w-4" /> {p.before.label}
+              </p>
+              <h3 class="mt-3 text-h3 text-slate-600">{pair.before.title}</h3>
+              <p class="mt-2 text-[0.9375rem] text-slate-600">{pair.before.text}</p>
+            </div>
+            <div class="relative flex-1 border-t border-slate-200 bg-navy-900 p-6 text-white">
+              <span
+                class="absolute -top-4 left-6 inline-flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-navy-900 shadow-card"
+                aria-hidden="true"
+              >
+                <Icon name="arrow-right" class="h-4 w-4 rotate-90" strokeWidth={2.5} />
+              </span>
+              <p class="mt-2 flex items-center gap-2 text-eyebrow uppercase text-green-500">
+                <Icon name="check-circle" class="h-4 w-4" /> {p.after.label}
+              </p>
+              <h3 class="mt-3 text-h3 text-white">{pair.after.title}</h3>
+              <p class="mt-2 text-[0.9375rem] text-slate-400">{pair.after.text}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,188 @@
+---
+import site from '@/content/site.it.json';
+import Icon from '@/components/Icon.astro';
+const c = site.contact;
+const f = c.fields;
+---
+
+<section id="contatti" class="section scroll-mt-20 bg-white" aria-labelledby="contact-title">
+  <div class="container-content grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+    <div data-reveal>
+      <p class="eyebrow">{c.eyebrow}</p>
+      <h2 id="contact-title" class="mt-4 text-h2 lg:text-[2.5rem] lg:leading-[3rem]">{c.title}</h2>
+      <p class="mt-4 text-slate-600">{c.intro}</p>
+      <ul class="mt-8 space-y-3">
+        {
+          c.reassurance.map((r) => (
+            <li class="flex items-center gap-3 text-[0.9375rem] text-navy-900">
+              <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-green-700">
+                <Icon name="check" class="h-3.5 w-3.5" strokeWidth={3} />
+              </span>
+              {r}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <form
+      class="card p-6 lg:p-8"
+      action="/api/contact"
+      method="post"
+      novalidate
+      data-contact-form
+      data-reveal
+      style="--reveal-delay: 100ms"
+    >
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div class="field">
+          <label for="cf-name">{f.name.label}</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required minlength="2" placeholder={f.name.placeholder} aria-describedby="cf-name-err" />
+          <p class="error" id="cf-name-err">{f.name.error}</p>
+        </div>
+        <div class="field">
+          <label for="cf-agency">{f.agency.label}</label>
+          <input id="cf-agency" name="agency" type="text" autocomplete="organization" required minlength="2" placeholder={f.agency.placeholder} aria-describedby="cf-agency-err" />
+          <p class="error" id="cf-agency-err">{f.agency.error}</p>
+        </div>
+        <div class="field">
+          <label for="cf-email">{f.email.label}</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder={f.email.placeholder} aria-describedby="cf-email-err" />
+          <p class="error" id="cf-email-err">{f.email.error}</p>
+        </div>
+        <div class="field">
+          <label for="cf-phone">{f.phone.label}</label>
+          <input id="cf-phone" name="phone" type="tel" autocomplete="tel" required pattern="[0-9+ .\(\)\-]{6,20}" placeholder={f.phone.placeholder} aria-describedby="cf-phone-err" />
+          <p class="error" id="cf-phone-err">{f.phone.error}</p>
+        </div>
+        <div class="field sm:col-span-2">
+          <label for="cf-message">{f.message.label}</label>
+          <textarea id="cf-message" name="message" required minlength="8" placeholder={f.message.placeholder} aria-describedby="cf-message-err"></textarea>
+          <p class="error" id="cf-message-err">{f.message.error}</p>
+        </div>
+
+        <!-- Honeypot: invisibile agli utenti, i bot lo compilano -->
+        <div class="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+          <label for="cf-website">Sito web</label>
+          <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="sm:col-span-2 space-y-3">
+          <label class="checkbox">
+            <input type="checkbox" name="collab" value="1" />
+            <span class="text-[0.9375rem]">{f.collab.label}</span>
+          </label>
+          <div class="field">
+            <label class="checkbox !font-normal" data-privacy-wrap>
+              <input type="checkbox" name="privacy" value="1" required aria-describedby="cf-privacy-err" />
+              <span class="text-[0.9375rem]">
+                {f.privacy.label.split(f.privacy.linkLabel)[0]}<a href={f.privacy.href} class="font-semibold text-navy-700 underline">{f.privacy.linkLabel}</a>{f.privacy.label.split(f.privacy.linkLabel)[1]}
+              </span>
+            </label>
+            <p class="error" id="cf-privacy-err">{f.privacy.error}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <button type="submit" class="btn btn-primary sm:min-w-52" data-submit>
+          <span data-submit-label>{c.submit}</span>
+          <Icon name="arrow-right" class="icon h-5 w-5" />
+        </button>
+        <p class="text-small text-slate-600" data-status role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="mt-6 hidden items-start gap-3 rounded-card bg-green-100 p-5 text-navy-900" data-success>
+        <Icon name="check-circle" class="h-6 w-6 shrink-0 text-green-700" />
+        <div>
+          <p class="font-semibold">{c.success.title}</p>
+          <p class="mt-1 text-[0.9375rem]">{c.success.text}</p>
+        </div>
+      </div>
+      <div class="mt-6 hidden items-start gap-3 rounded-card bg-red-100 p-5 text-navy-900" data-failure>
+        <Icon name="alert-circle" class="h-6 w-6 shrink-0 text-red-500" />
+        <div>
+          <p class="font-semibold">{c.error.title}</p>
+          <p class="mt-1 text-[0.9375rem]">{c.error.text} <a class="font-semibold underline" href={`mailto:${c.email}`}>{c.email}</a>.</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  if (form) {
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]')!;
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const success = form.querySelector<HTMLElement>('[data-success]')!;
+    const failure = form.querySelector<HTMLElement>('[data-failure]')!;
+    const idleLabel = submitLabel.textContent ?? '';
+    const sendingLabel = 'Invio in corso…';
+
+    const fields = Array.from(form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]'));
+
+    function fieldWrap(el: Element) {
+      return el.closest('.field') as HTMLElement | null;
+    }
+    function validate(el: HTMLInputElement | HTMLTextAreaElement) {
+      const ok = el.validity.valid;
+      const wrap = fieldWrap(el);
+      wrap?.setAttribute('data-invalid', String(!ok));
+      el.setAttribute('aria-invalid', String(!ok));
+      const cb = el.closest('.checkbox');
+      cb?.setAttribute('data-invalid', String(!ok));
+      return ok;
+    }
+    fields.forEach((el) => {
+      el.addEventListener('blur', () => validate(el));
+      el.addEventListener('input', () => {
+        if (fieldWrap(el)?.getAttribute('data-invalid') === 'true') validate(el);
+      });
+      el.addEventListener('change', () => validate(el));
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      let firstInvalid: HTMLElement | null = null;
+      for (const el of fields) {
+        if (!validate(el) && !firstInvalid) firstInvalid = el;
+      }
+      if (firstInvalid) {
+        firstInvalid.focus();
+        return;
+      }
+      submit.disabled = true;
+      submitLabel.textContent = sendingLabel;
+      status.textContent = sendingLabel;
+      success.classList.add('hidden');
+      failure.classList.add('hidden');
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+        if (!res.ok || !data.ok) throw new Error(data.error || 'send_failed');
+        form.reset();
+        fields.forEach((el) => {
+          fieldWrap(el)?.removeAttribute('data-invalid');
+          el.removeAttribute('aria-invalid');
+        });
+        success.classList.remove('hidden');
+        success.classList.add('flex');
+        status.textContent = '';
+        success.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      } catch {
+        failure.classList.remove('hidden');
+        failure.classList.add('flex');
+        status.textContent = '';
+      } finally {
+        submit.disabled = false;
+        submitLabel.textContent = idleLabel;
+      }
+    });
+  }
+</script>

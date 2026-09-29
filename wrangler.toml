@@ -1,0 +1,11 @@
+# Configurazione locale per `wrangler pages dev` (Cloudflare Pages).
+# In produzione le variabili si impostano dal pannello Cloudflare Pages.
+name = "assicurapp-site"
+compatibility_date = "2025-09-01"
+pages_build_output_dir = "dist"
+
+# Binding KV opzionale: se presente, ogni richiesta di contatto viene salvata
+# anche in KV (fallback se Resend non è configurato o fallisce).
+# [[kv_namespaces]]
+# binding = "KV_CONTACTS"
+# id = "<id-namespace-kv>"

@@ -1,0 +1,37 @@
+---
+import site from '@/content/site.it.json';
+import Icon from '@/components/Icon.astro';
+const o = site.onboarding;
+---
+
+<section id="come-si-parte" class="section scroll-mt-20 bg-white" aria-labelledby="onboarding-title">
+  <div class="container-content">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow">{o.eyebrow}</p>
+      <h2 id="onboarding-title" class="mt-4 text-h2 lg:text-[2.5rem] lg:leading-[3rem]">{o.title}</h2>
+      <p class="mt-4 text-slate-600">{o.intro}</p>
+    </div>
+
+    <ol class="timeline relative mt-12 grid gap-8 lg:grid-cols-6 lg:gap-6">
+      {
+        o.steps.map((s, i) => (
+          <li class="relative flex gap-4 lg:flex-col lg:gap-5" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
+            <span class="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-navy-700 bg-white text-navy-700">
+              <Icon name={s.icon as any} class="h-5 w-5" />
+            </span>
+            <div>
+              <p class="text-eyebrow uppercase text-slate-600">Passo {i + 1}</p>
+              <h3 class="mt-1 text-h3">{s.title}</h3>
+              <p class="mt-2 text-[0.9375rem] text-slate-600">{s.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <p class="mt-12 flex items-center gap-3 rounded-card bg-green-100 px-5 py-4 font-semibold text-navy-900" data-reveal>
+      <Icon name="check-circle" class="h-6 w-6 shrink-0 text-green-700" />
+      {o.closing}
+    </p>
+  </div>
+</section>

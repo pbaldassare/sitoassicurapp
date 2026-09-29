@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" width="32" height="32" role="img" aria-label="Assicurapp">
+  
+  <path fill="#10B981" d="M6 13 H106 V49.12 C106 74.92 83.5 88.68 56 99 C28.5 88.68 6 74.92 6 49.12 Z"/>
+  <polyline fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" points="35,50.84 51,66.84 79,35.84"/>
+</svg>

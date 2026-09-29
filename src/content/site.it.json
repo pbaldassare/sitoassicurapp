@@ -1,0 +1,482 @@
+{
+  "meta": {
+    "siteName": "Assicurapp",
+    "title": "Assicurapp — Preventivi, polizze e provvigioni in un solo accesso",
+    "description": "Piattaforma web per agenzie e broker: preventivi RC Auto, Moto e Autocarri su più compagnie, emissione, polizze, incassi e provvigioni. Un accesso solo, la tua agenzia con il tuo nome.",
+    "claim": "Preventivi, polizze e provvigioni. Un accesso solo.",
+    "locale": "it_IT",
+    "twitterCard": "summary_large_image"
+  },
+  "nav": {
+    "items": [
+      { "label": "Funzionalità", "href": "#funzionalita" },
+      { "label": "Tariffe", "href": "#tariffe" },
+      { "label": "Collaborazioni", "href": "#collaborazioni" },
+      { "label": "Come si parte", "href": "#come-si-parte" },
+      { "label": "FAQ", "href": "#faq" }
+    ],
+    "cta": { "label": "Richiedi una demo", "href": "#contatti" },
+    "menuOpen": "Apri il menu",
+    "menuClose": "Chiudi il menu",
+    "skipLink": "Vai al contenuto"
+  },
+  "hero": {
+    "eyebrow": "Per agenzie e broker assicurativi",
+    "title": "Preventivi su più compagnie, polizze e provvigioni. Tutto in un posto.",
+    "subtitle": "Assicurapp è la piattaforma web della tua agenzia: inserisci la targa, confronta le quotazioni delle compagnie, emetti e gestisci le polizze. Un accesso solo, con il tuo nome e il tuo logo.",
+    "ctaPrimary": { "label": "Richiedi una demo", "href": "#contatti" },
+    "ctaSecondary": { "label": "Vedi le tariffe", "href": "#tariffe" },
+    "mockup": {
+      "title": "Nuovo preventivo",
+      "plateLabel": "Targa",
+      "plate": "FX 482 KM",
+      "fetched": "Dati recuperati da ANIA",
+      "vehicle": "Fiat Panda 1.2 · 2019",
+      "holder": "Contraente compilato",
+      "columns": ["Compagnia", "Premio"],
+      "status": "Interrogazione in corso",
+      "done": "6 quotazioni pronte",
+      "rows": [
+        { "company": "ConTe", "state": "ok" },
+        { "company": "Quixa", "state": "ok" },
+        { "company": "Groupama", "state": "ok" },
+        { "company": "Prima.it", "state": "ok" },
+        { "company": "Genialpiù", "state": "ok" },
+        { "company": "Verti Professional", "state": "ok" }
+      ],
+      "priceLabel": "quotazione",
+      "note": "Schermata schematica a scopo illustrativo. Nessun premio reale."
+    },
+    "marqueeLabel": "Compagnie interrogabili dalla piattaforma"
+  },
+  "trust": {
+    "items": [
+      { "value": "15", "label": "tariffe base", "icon": "layers" },
+      { "value": "5", "label": "tariffe in convenzione", "icon": "handshake" },
+      { "value": "ANIA", "label": "preventivazione automatica da targa", "icon": "search" },
+      { "value": "Stripe + bonifico", "label": "pagamenti dal cliente", "icon": "credit-card" }
+    ]
+  },
+  "problem": {
+    "eyebrow": "Perché Assicurapp",
+    "title": "Oggi lavori su troppi portali. Domani su uno.",
+    "before": {
+      "label": "Prima",
+      "items": [
+        {
+          "title": "Un portale per ogni compagnia",
+          "text": "Per un preventivo apri cinque siti diversi, con cinque password diverse."
+        },
+        {
+          "title": "Dati reinseriti ogni volta",
+          "text": "Targa, contraente, veicolo: gli stessi campi, compilati a mano, portale dopo portale."
+        },
+        {
+          "title": "Provvigioni su Excel",
+          "text": "Quote compagnia, consulenza e diritti tenuti in un foglio che nessuno aggiorna in tempo."
+        }
+      ]
+    },
+    "after": {
+      "label": "Con Assicurapp",
+      "items": [
+        {
+          "title": "Un accesso",
+          "text": "Scegli le compagnie da interrogare e le quotazioni arrivano in un'unica schermata."
+        },
+        {
+          "title": "Anagrafica che si compila da sola",
+          "text": "Dalla targa recuperi contraente e veicolo. Ogni preventivo alimenta la scheda cliente."
+        },
+        {
+          "title": "Saldo per utente",
+          "text": "Ogni collaboratore vede le provvigioni e le quote maturate. Senza fogli di calcolo."
+        }
+      ]
+    }
+  },
+  "features": {
+    "eyebrow": "Funzionalità",
+    "title": "Dal preventivo all'incasso, senza cambiare strumento.",
+    "intro": "Otto aree di lavoro, una piattaforma. Ogni blocco è qualcosa che Assicurapp fa oggi.",
+    "blocks": [
+      {
+        "id": "preventivazione",
+        "icon": "calculator",
+        "title": "Preventivazione",
+        "size": "large",
+        "items": [
+          "Ricerca automatica su ANIA per auto, moto e autocarri: dalla targa a contraente, marca, modello e cilindrata, dove disponibile",
+          "Continuità assicurativa: Bersani, familiari con lo stesso proprietario, veicoli recuperati",
+          "Guida esperta e guida libera",
+          "Garanzie accessorie dentro l'RCA (furto, incendio) e coperture CVT",
+          "Quotazioni su più compagnie in un'unica schermata, scegliendo quali interrogare",
+          "Caricamento documenti e stampa del mandato direttamente dal preventivo"
+        ]
+      },
+      {
+        "id": "prodotti",
+        "icon": "package",
+        "title": "Prodotti",
+        "items": [
+          "RC Auto, Moto, Autocarri e CVT standalone",
+          "Prodotti personalizzati con quotazione inserita a mano, per tutto quello che non ha ricerca automatica",
+          "Garanzie accessorie configurabili",
+          "Prodotti organizzati in categorie"
+        ]
+      },
+      {
+        "id": "provvigioni",
+        "icon": "percent",
+        "title": "Provvigioni",
+        "items": [
+          "Provvigione compagnia, quota consulenza e diritti di emissione, del fornitore e della piattaforma, gestiti per ogni polizza",
+          "Saldo attivo per utente: ogni collaboratore vede provvigioni e quote maturate",
+          "Estratto provvigionale con i dati fiscali dell'agenzia"
+        ]
+      },
+      {
+        "id": "polizze",
+        "icon": "file-check",
+        "title": "Polizze",
+        "items": [
+          "Sostituzione, sospensione, riattivazione, rinnovo e disdetta",
+          "Stampa della fattura sulla polizza",
+          "Pagina delle polizze in scadenza con riepilogo e pulsante per creare il preventivo di rinnovo",
+          "Quietanze intermedie e lista delle rate successive da pagare"
+        ]
+      },
+      {
+        "id": "pagamenti",
+        "icon": "credit-card",
+        "title": "Pagamenti",
+        "items": [
+          "Bonifico: al cliente vengono mostrati intestatario e IBAN della tua agenzia",
+          "Carta con Stripe: la piattaforma genera il link di pagamento già precompilato con importo e intestazione, da inviare al cliente",
+          "Gestione del pagamento delle rate"
+        ]
+      },
+      {
+        "id": "contabilita",
+        "icon": "wallet",
+        "title": "Contabilità e utenti",
+        "items": [
+          "Foglio cassa con incassi e mancati incassi",
+          "Utenti e collaboratori con ruoli",
+          "Ognuno vede il proprio saldo"
+        ]
+      },
+      {
+        "id": "anagrafiche",
+        "icon": "users",
+        "title": "Anagrafiche e comunicazione",
+        "items": [
+          "Anagrafica clienti che si compila da sola con i dati dei preventivi",
+          "Gestione fornitori",
+          "Chat interna tra utenti e chat di assistenza",
+          "Notifiche email: nuovo preventivo, richiesta di emissione, promemoria di scadenza al cliente"
+        ]
+      },
+      {
+        "id": "report",
+        "icon": "bar-chart",
+        "title": "Reportistica e impostazioni",
+        "items": [
+          "Pagina statistiche sui preventivi",
+          "Stati personalizzati con colore e priorità",
+          "Categorie di prodotto configurabili",
+          "Pagina tutorial integrata"
+        ]
+      }
+    ]
+  },
+  "rates": {
+    "eyebrow": "Tariffe",
+    "title": "Le compagnie che puoi interrogare.",
+    "intro": "Le tariffe base sono disponibili per ogni agenzia. Quelle in convenzione arrivano tramite accordi dedicati. Per la maggior parte delle tariffe base la copertura riguarda auto, autocarri e moto, con garanzie accessorie incluse.",
+    "filters": [
+      { "id": "all", "label": "Tutte" },
+      { "id": "base", "label": "Base" },
+      { "id": "convention", "label": "In convenzione" }
+    ],
+    "baseLabel": "Tariffa base",
+    "conventionLabel": "In convenzione",
+    "base": [
+      "ConTe",
+      "Italiana Assicurazioni",
+      "Groupama",
+      "Reale Mutua",
+      "Prima.it",
+      "Nobis Assicurazioni",
+      "Quixa",
+      "Genialpiù",
+      "Euroherc",
+      "Vittoria Assicurazioni",
+      "Verti Professional",
+      "Wakam",
+      "Linear Next",
+      "HDI",
+      "Zurich"
+    ],
+    "convention": ["Allianz", "Generali Cargo", "Europ Assistance", "Lloyd's", "Net Insurance"],
+    "countLabel": "{n} tariffe",
+    "note": "Per interrogare una tariffa serve l'accesso (utente e password) al portale della compagnia. Senza credenziali la tariffa non produce offerte.",
+    "disclaimer": "I nomi delle compagnie sono riportati a solo scopo identificativo e appartengono ai rispettivi titolari."
+  },
+  "collab": {
+    "eyebrow": "Collaborazioni",
+    "title": "Una piattaforma sola. Convenzioni e moduli cambiano da agenzia ad agenzia.",
+    "intro": "Assicurapp è costruita su tre livelli. È questa struttura che ti permette di collaborare con altri intermediari.",
+    "levels": [
+      {
+        "n": "1",
+        "name": "Tariffa",
+        "text": "Il prodotto della compagnia, così come lo espone il suo portale."
+      },
+      {
+        "n": "2",
+        "name": "Convenzione",
+        "text": "Quella tariffa con le condizioni di chi la mette a disposizione."
+      },
+      {
+        "n": "3",
+        "name": "Istanza",
+        "text": "La piattaforma della singola agenzia, con le convenzioni abilitate e i moduli accesi."
+      }
+    ],
+    "cases": [
+      {
+        "icon": "share",
+        "title": "Hai una convenzione?",
+        "text": "Puoi metterla a disposizione di altre agenzie sulla piattaforma, con le tue condizioni. Chi la usa la vede tra le proprie tariffe, tu la governi."
+      },
+      {
+        "icon": "network",
+        "title": "Hai una rete di intermediari?",
+        "text": "Puoi portare Assicurapp ai tuoi collaboratori, ognuno con la propria istanza, con il proprio nome e dominio, e vedere le provvigioni di rete."
+      }
+    ],
+    "cta": { "label": "Proponi una collaborazione", "href": "#contatti" },
+    "diagram": {
+      "title": "Schema a tre livelli: la tariffa diventa convenzione, la convenzione si accende su una o più istanze",
+      "tariffa": "Tariffa",
+      "convenzione": "Convenzione",
+      "istanze": ["Istanza A", "Istanza B", "Istanza C"],
+      "istanzaSub": "agenzia",
+      "condizioni": "+ condizioni"
+    }
+  },
+  "onboarding": {
+    "eyebrow": "Come si parte",
+    "title": "Sei passi. Poi la tua istanza è pronta.",
+    "intro": "Nessuna installazione. Ci servono i dati della tua agenzia, in questo ordine.",
+    "steps": [
+      {
+        "icon": "badge",
+        "title": "Identità",
+        "text": "Nome dell'agenzia, logo PNG ad alta risoluzione, dominio e inoltro DNS."
+      },
+      {
+        "icon": "building",
+        "title": "Dati fiscali",
+        "text": "Ragione sociale, P.IVA, sede, codice SDI o PEC. Compaiono sull'estratto provvigionale e nell'export contabile."
+      },
+      {
+        "icon": "mail",
+        "title": "Contatti",
+        "text": "Email e telefono dell'agenzia, che diventano l'indirizzo di risposta verso i tuoi clienti."
+      },
+      {
+        "icon": "landmark",
+        "title": "Incassi",
+        "text": "Intestatario e IBAN per il bonifico. Chiavi Stripe (produzione e test) se vuoi il pagamento con carta."
+      },
+      {
+        "icon": "file-text",
+        "title": "Documenti",
+        "text": "Modello Word del mandato, con logo e numero RUI, e modello della fattura."
+      },
+      {
+        "icon": "key",
+        "title": "Accessi compagnie",
+        "text": "Credenziali ai portali delle tariffe che vuoi attivare."
+      }
+    ],
+    "closing": "Raccolti questi dati, la tua istanza è pronta."
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Domande frequenti",
+    "items": [
+      {
+        "q": "Serve un altro gestionale oltre ad Assicurapp?",
+        "a": "No. Preventivi, emissione, polizze, incassi, provvigioni, anagrafiche e comunicazione con il cliente sono già in piattaforma. Il foglio cassa e l'export contabile coprono la parte amministrativa."
+      },
+      {
+        "q": "Quanto tempo ci vuole per attivare la mia agenzia?",
+        "a": "Pochi giorni. Il tempo dipende da quanto in fretta ci mandi i sei blocchi di dati della sezione \"Come si parte\": identità, dati fiscali, contatti, incassi, documenti e accessi alle compagnie."
+      },
+      {
+        "q": "Posso aggiungere prodotti che non sono in piattaforma?",
+        "a": "Sì. Crei un prodotto personalizzato, lo metti nella categoria che preferisci e inserisci la quotazione a mano. Vale per tutto quello che non ha una ricerca automatica."
+      },
+      {
+        "q": "Come vengono gestite le provvigioni dei miei collaboratori?",
+        "a": "Per ogni polizza registri provvigione compagnia, quota consulenza e diritti di emissione. Ogni collaboratore ha un saldo attivo e vede solo le proprie provvigioni e quote maturate."
+      },
+      {
+        "q": "I miei clienti vedono i miei dati o quelli di Assicurapp?",
+        "a": "I tuoi. Nome, logo, dominio, email e telefono di risposta, intestatario e IBAN per il bonifico: la tua istanza è la tua agenzia, Assicurapp non compare."
+      },
+      {
+        "q": "Posso usare solo alcune compagnie?",
+        "a": "Sì. Attivi solo le tariffe per cui hai le credenziali del portale, e a ogni preventivo scegli quali compagnie interrogare."
+      },
+      {
+        "q": "Cosa succede alle polizze in scadenza?",
+        "a": "Hai una pagina con il riepilogo delle scadenze e un pulsante che crea il preventivo di rinnovo. Al cliente parte un promemoria via email."
+      },
+      {
+        "q": "Come funziona il pagamento con carta?",
+        "a": "Con le tue chiavi Stripe la piattaforma genera un link di pagamento già precompilato con importo e intestazione. Lo invii al cliente e l'incasso arriva sul tuo conto Stripe."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Richiedi una demo",
+    "title": "Vediamola insieme.",
+    "intro": "Ti mostriamo la piattaforma con un preventivo reale sulle compagnie che usi. Scrivici e ti richiamiamo.",
+    "fields": {
+      "name": { "label": "Nome e cognome", "placeholder": "Mario Rossi", "error": "Inserisci il tuo nome." },
+      "agency": { "label": "Agenzia", "placeholder": "Nome dell'agenzia o del broker", "error": "Inserisci il nome dell'agenzia." },
+      "email": { "label": "Email", "placeholder": "nome@agenzia.it", "error": "Inserisci un indirizzo email valido." },
+      "phone": { "label": "Telefono", "placeholder": "+39 ...", "error": "Inserisci un numero di telefono valido." },
+      "message": { "label": "Messaggio", "placeholder": "Raccontaci come lavori oggi e cosa vorresti vedere.", "error": "Scrivi almeno due parole." },
+      "collab": { "label": "Mi interessa una collaborazione (ho una convenzione o una rete di intermediari)" },
+      "privacy": {
+        "label": "Ho letto l'informativa privacy e acconsento al trattamento dei dati per essere ricontattato.",
+        "linkLabel": "informativa privacy",
+        "href": "/privacy",
+        "error": "Serve il consenso per poterti ricontattare."
+      }
+    },
+    "submit": "Invia la richiesta",
+    "submitting": "Invio in corso…",
+    "success": {
+      "title": "Richiesta inviata.",
+      "text": "Ti rispondiamo dall'indirizzo dell'agenzia entro un giorno lavorativo."
+    },
+    "error": {
+      "title": "Non siamo riusciti a inviare la richiesta.",
+      "text": "Riprova tra qualche minuto oppure scrivici direttamente a"
+    },
+    "email": "[EMAIL AGENZIA — placeholder]",
+    "reassurance": ["Nessun impegno", "Nessun tracker di terze parti", "Risposta entro un giorno lavorativo"]
+  },
+  "footer": {
+    "tagline": "La piattaforma web per agenzie e broker assicurativi.",
+    "columns": [
+      {
+        "title": "Sito",
+        "links": [
+          { "label": "Funzionalità", "href": "#funzionalita" },
+          { "label": "Tariffe", "href": "#tariffe" },
+          { "label": "Collaborazioni", "href": "#collaborazioni" },
+          { "label": "Come si parte", "href": "#come-si-parte" },
+          { "label": "FAQ", "href": "#faq" }
+        ]
+      },
+      {
+        "title": "Contatti",
+        "links": [
+          { "label": "Richiedi una demo", "href": "#contatti" },
+          { "label": "Proponi una collaborazione", "href": "#contatti" }
+        ]
+      },
+      {
+        "title": "Legale",
+        "links": [
+          { "label": "Privacy", "href": "/privacy" },
+          { "label": "Cookie", "href": "/privacy#cookie" }
+        ]
+      }
+    ],
+    "legal": "Assicurapp è un prodotto di [RAGIONE SOCIALE — placeholder] · P.IVA [P.IVA — placeholder] · [SEDE — placeholder]",
+    "copyright": "© {year} [RAGIONE SOCIALE — placeholder]. Tutti i diritti riservati.",
+    "cookieNote": "Questo sito non usa cookie di profilazione né tracker di terze parti."
+  },
+  "thanks": {
+    "title": "Grazie, richiesta ricevuta.",
+    "text": "Ti rispondiamo entro un giorno lavorativo dall'indirizzo dell'agenzia. Nel frattempo puoi guardare le tariffe disponibili o come si parte.",
+    "ctaHome": { "label": "Torna al sito", "href": "/" },
+    "ctaRates": { "label": "Vedi le tariffe", "href": "/#tariffe" },
+    "metaTitle": "Grazie — Assicurapp"
+  },
+  "privacy": {
+    "metaTitle": "Informativa privacy — Assicurapp",
+    "title": "Informativa sulla privacy",
+    "updated": "Ultimo aggiornamento: [DATA — placeholder]",
+    "intro": "Questa informativa descrive come vengono trattati i dati personali di chi visita questo sito e di chi compila il modulo di contatto, ai sensi del Regolamento (UE) 2016/679 (GDPR).",
+    "sections": [
+      {
+        "id": "titolare",
+        "title": "1. Titolare del trattamento",
+        "paragraphs": [
+          "Il titolare del trattamento è [RAGIONE SOCIALE — placeholder], con sede in [SEDE — placeholder], P.IVA [P.IVA — placeholder], email [EMAIL PRIVACY — placeholder], PEC [PEC — placeholder]."
+        ]
+      },
+      {
+        "id": "dati",
+        "title": "2. Dati trattati",
+        "paragraphs": [
+          "Modulo di contatto: nome e cognome, nome dell'agenzia, email, telefono, contenuto del messaggio, interesse per una collaborazione, consenso espresso.",
+          "Navigazione: il sito non usa cookie di profilazione né tracker di terze parti. Il provider di hosting (Cloudflare) può registrare log tecnici (indirizzo IP, user agent, orario) necessari alla sicurezza e all'erogazione del servizio."
+        ]
+      },
+      {
+        "id": "finalita",
+        "title": "3. Finalità e base giuridica",
+        "paragraphs": [
+          "Rispondere alla richiesta di demo o di collaborazione inviata tramite il modulo. Base giuridica: consenso dell'interessato (art. 6, par. 1, lett. a GDPR) e misure precontrattuali su richiesta dell'interessato (art. 6, par. 1, lett. b GDPR).",
+          "Sicurezza e funzionamento del sito. Base giuridica: legittimo interesse del titolare (art. 6, par. 1, lett. f GDPR)."
+        ]
+      },
+      {
+        "id": "conservazione",
+        "title": "4. Conservazione",
+        "paragraphs": [
+          "I dati del modulo di contatto sono conservati per [PERIODO — placeholder, es. 12 mesi] dall'ultimo contatto, salvo che si instauri un rapporto contrattuale. I log tecnici sono conservati per il tempo previsto dal provider di hosting."
+        ]
+      },
+      {
+        "id": "destinatari",
+        "title": "5. Destinatari e trasferimenti",
+        "paragraphs": [
+          "I dati possono essere trattati da fornitori che agiscono come responsabili del trattamento: Cloudflare (hosting e infrastruttura) e Resend (invio email). Alcuni fornitori possono trattare dati al di fuori dell'Unione Europea sulla base di clausole contrattuali standard o decisioni di adeguatezza.",
+          "[ELENCO RESPONSABILI — placeholder: completa con i fornitori effettivamente usati]"
+        ]
+      },
+      {
+        "id": "diritti",
+        "title": "6. Diritti dell'interessato",
+        "paragraphs": [
+          "Puoi chiedere in qualsiasi momento accesso, rettifica, cancellazione, limitazione del trattamento, portabilità dei dati e opposizione, e revocare il consenso senza pregiudicare la liceità del trattamento precedente. Scrivi a [EMAIL PRIVACY — placeholder].",
+          "Hai il diritto di proporre reclamo al Garante per la protezione dei dati personali (www.garanteprivacy.it)."
+        ]
+      },
+      {
+        "id": "cookie",
+        "title": "7. Cookie",
+        "paragraphs": [
+          "Questo sito non installa cookie di profilazione né cookie di terze parti. Se in futuro verranno attivate statistiche di traffico, verrà usato Cloudflare Web Analytics, che non usa cookie e non traccia gli utenti tra siti diversi."
+        ]
+      }
+    ]
+  },
+  "organization": {
+    "legalName": "[RAGIONE SOCIALE — placeholder]",
+    "email": "[EMAIL AGENZIA — placeholder]",
+    "telephone": "[TELEFONO — placeholder]",
+    "address": "[SEDE — placeholder]"
+  }
+}

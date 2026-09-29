@@ -1,0 +1,22 @@
+---
+import Base from '@/layouts/Base.astro';
+import site from '@/content/site.it.json';
+import Icon from '@/components/Icon.astro';
+const t = site.thanks;
+---
+
+<Base title={t.metaTitle} description={t.text} minimal noindex>
+  <section class="section">
+    <div class="container-content max-w-2xl text-center">
+      <span class="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-700">
+        <Icon name="check" class="h-8 w-8" strokeWidth={2.5} />
+      </span>
+      <h1 class="mt-6 text-h1">{t.title}</h1>
+      <p class="mt-4 text-slate-600">{t.text}</p>
+      <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+        <a href={t.ctaHome.href} class="btn btn-primary">{t.ctaHome.label}</a>
+        <a href={t.ctaRates.href} class="btn btn-outline">{t.ctaRates.label}</a>
+      </div>
+    </div>
+  </section>
+</Base>

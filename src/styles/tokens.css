@@ -1,0 +1,81 @@
+/* =========================================================================
+   Assicurapp — design tokens
+   Fonte di verità: docs/brand-guidelines.md
+   Nessun hex grezzo nei componenti: usa solo questi token.
+   ========================================================================= */
+@theme {
+  /* Reset della palette di default di Tailwind: restano solo i token brand */
+  --color-*: initial;
+
+  /* Palette */
+  --color-navy-900: #0f172a; /* testi, hero scuro */
+  --color-navy-800: #172554; /* superfici scure secondarie */
+  --color-navy-700: #1e3a8a; /* primario */
+  --color-blue-500: #3b82f6; /* accento, link, focus */
+  --color-blue-100: #dbeafe; /* sfondo accento tenue */
+  --color-green-500: #10b981; /* conferme, "attivo", CTA secondaria */
+  --color-green-100: #d1fae5; /* sfondo conferma tenue */
+  --color-slate-50: #f8fafc; /* sfondi sezione */
+  --color-slate-100: #f1f5f9; /* superfici tenui */
+  --color-slate-200: #e2e8f0; /* bordi */
+  --color-slate-400: #94a3b8; /* testo terziario su navy */
+  --color-slate-600: #475569; /* testo secondario */
+  --color-white: #ffffff;
+  --color-red-500: #ef4444; /* errori form */
+  --color-red-100: #fee2e2;
+
+  /* Tipografia — Plus Jakarta Sans unica famiglia */
+  --font-sans:
+    'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+
+  --text-display: 3.5rem; /* 56 */
+  --text-display--line-height: 4rem; /* 64 */
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 700;
+  --text-h1: 2.75rem; /* 44 */
+  --text-h1--line-height: 3.25rem; /* 52 */
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 700;
+  --text-h2: 2rem; /* 32 */
+  --text-h2--line-height: 2.5rem; /* 40 */
+  --text-h2--letter-spacing: -0.02em;
+  --text-h2--font-weight: 700;
+  --text-h3: 1.375rem; /* 22 */
+  --text-h3--line-height: 1.875rem; /* 30 */
+  --text-h3--letter-spacing: -0.01em;
+  --text-h3--font-weight: 700;
+  --text-body: 1.0625rem; /* 17 */
+  --text-body--line-height: 1.75rem; /* 28 */
+  --text-small: 0.875rem; /* 14 */
+  --text-small--line-height: 1.25rem; /* 20 */
+  --text-eyebrow: 0.8125rem; /* 13 */
+  --text-eyebrow--line-height: 1.25rem;
+  --text-eyebrow--letter-spacing: 0.08em;
+  --text-eyebrow--font-weight: 600;
+
+  /* Spaziatura: scala 4/8/12/16/24/32/48/64/96 (Tailwind: 1,2,3,4,6,8,12,16,24) */
+  --spacing: 0.25rem;
+  --spacing-section: 6rem; /* 96 desktop */
+  --spacing-section-sm: 4rem; /* 64 mobile */
+  --container-content: 75rem; /* 1200 */
+
+  /* Raggi */
+  --radius-card: 0.75rem; /* 12 */
+  --radius-pill: 999px;
+
+  /* Ombre: una sola, soft, per le card in hover */
+  --shadow-card: 0 12px 32px -12px rgb(15 23 42 / 0.18), 0 2px 6px -2px rgb(15 23 42 / 0.06);
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-enter: 400ms;
+  --duration-micro: 160ms;
+
+  /* Breakpoint: 640/768/1024/1280 */
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: initial;
+}

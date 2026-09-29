@@ -1,0 +1,45 @@
+---
+import site from '@/content/site.it.json';
+import Logo from '@/components/Logo.astro';
+const f = site.footer;
+const year = new Date().getFullYear();
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const fix = (href: string) => (href.startsWith('#') && !isHome ? '/' + href : href);
+---
+
+<footer class="bg-navy-900 text-slate-400">
+  <div class="container-content py-16">
+    <div class="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
+      <div>
+        <a href="/" class="inline-flex rounded-md" aria-label={`${site.meta.siteName} — home`}>
+          <Logo variant="white" height={30} />
+        </a>
+        <p class="mt-5 max-w-xs text-[0.9375rem] leading-relaxed">{f.tagline}</p>
+      </div>
+      {
+        f.columns.map((col) => (
+          <nav aria-label={col.title}>
+            <h2 class="text-small font-semibold uppercase tracking-[0.08em] text-white">{col.title}</h2>
+            <ul class="mt-4 space-y-2">
+              {col.links.map((l) => (
+                <li>
+                  <a
+                    href={fix(l.href)}
+                    class="inline-flex min-h-8 items-center text-[0.9375rem] text-slate-400 transition-colors hover:text-white"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+    <div class="mt-14 flex flex-col gap-3 border-t border-white/10 pt-8 text-small">
+      <p>{f.legal}</p>
+      <p>{f.cookieNote}</p>
+      <p>{f.copyright.replace('{year}', String(year))}</p>
+    </div>
+  </div>
+</footer>

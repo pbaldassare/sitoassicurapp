@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Assicurapp — variante B">
+  <rect width="120" height="120" rx="26" fill="#0F172A"/>
+  <path fill="#FFFFFF" d="M10 12 H110 V48.12 C110 73.92 87.5 87.68 60 98 C32.5 87.68 10 73.92 10 48.12 Z"/>
+  <!-- "A" negativa: due gambe che si aprono verso il basso -->
+  <path fill="none" stroke="#10B981" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" d="M38 76 L60 30 L82 76"/>
+  <!-- linea di percorso: entra da sinistra, attraversa la A come traversa, esce a destra con una spunta -->
+  <path fill="none" stroke="#10B981" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" d="M22 60 H56 L64 68 L78 52"/>
+</svg>

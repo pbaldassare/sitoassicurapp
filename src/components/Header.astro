@@ -1,0 +1,109 @@
+---
+import site from '@/content/site.it.json';
+import Logo from '@/components/Logo.astro';
+import Icon from '@/components/Icon.astro';
+interface Props {
+  minimal?: boolean;
+}
+const { minimal = false } = Astro.props;
+const home = minimal ? '/' : '';
+const items = site.nav.items.map((i) => ({ ...i, href: home + i.href }));
+const cta = { ...site.nav.cta, href: home + site.nav.cta.href };
+---
+
+<header class="site-header sticky top-0 z-50 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/80" data-header>
+  <div class="container-content flex h-18 items-center justify-between gap-6">
+    <a href="/" class="flex items-center rounded-md py-1" aria-label={`${site.meta.siteName} — home`}>
+      <Logo height={30} />
+    </a>
+
+    <nav aria-label="Principale" class="hidden lg:block">
+      <ul class="flex items-center gap-1">
+        {
+          items.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="inline-flex min-h-11 items-center rounded-pill px-4 text-[0.9375rem] font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-navy-900"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href={cta.href} class="btn btn-primary hidden sm:inline-flex !min-h-11 !py-2.5 !px-5 text-[0.9375rem]">
+        {cta.label}
+      </a>
+      <button
+        type="button"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-pill text-navy-900 hover:bg-slate-50 lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label={site.nav.menuOpen}
+        data-menu-toggle
+      >
+        <Icon name="menu" class="h-6 w-6" />
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white lg:hidden" data-mobile-menu>
+    <nav aria-label="Principale (mobile)" class="container-content py-3">
+      <ul class="flex flex-col">
+        {
+          items.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="flex min-h-12 items-center rounded-lg px-3 text-base font-medium text-navy-900 hover:bg-slate-50"
+                data-menu-link
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="mt-2 pb-2 sm:hidden">
+          <a href={cta.href} class="btn btn-primary w-full" data-menu-link>{cta.label}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+  const openLabel = toggle?.getAttribute('aria-label') ?? '';
+  const closeLabel = 'Chiudi il menu';
+
+  const iconMenu = toggle?.innerHTML ?? '';
+  const iconClose =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+
+  function setOpen(open: boolean) {
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? closeLabel : openLabel);
+    toggle.innerHTML = open ? iconClose : iconMenu;
+    menu.classList.toggle('hidden', !open);
+  }
+  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  menu?.querySelectorAll('[data-menu-link]').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+
+  // Ombra sottile quando la pagina scorre
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

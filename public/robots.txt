@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /grazie
+
+Sitemap: https://assicurapp.it/sitemap-index.xml
