@@ -110,6 +110,21 @@ Il font (Plus Jakarta Sans 400–700, solo latin) è servito dal sito tramite `@
 connessioni a Google Fonts. Il brief indicava Google Fonts, ma il suo CSS bloccava il rendering e teneva Lighthouse
 mobile a 83.
 
+## SEO, AEO e GEO
+
+Il sito è scritto per essere trovato dai motori di ricerca, citato dai motori di risposta e letto dai modelli generativi.
+
+- **Title e description** con le parole chiave di ricerca (preventivi RC Auto multicompagnia, agenzie e broker) e numeri reali (20 compagnie).
+- **H1 e H2 descrittivi**: ogni titolo di sezione dice di cosa parla e nomina Assicurapp o il prodotto.
+- **Blocco "Cos'è Assicurapp"** (`#cos-e`): una definizione in un paragrafo, autosufficiente e citabile, più sei fatti chiave in un `<dl>`.
+  È il testo che un motore di risposta può riprendere così com'è.
+- **FAQ** con 15 domande: la risposta sta nella prima frase. Include le domande definitorie (cos'è, per chi, quali compagnie, come funziona la targa, cosa sono tariffa/convenzione/istanza).
+- **Dati strutturati** collegati tra loro con `@id`: `Organization`, `WebSite`, `SoftwareApplication` (con `abstract` e `keywords`), `FAQPage`, `HowTo` per i sei passi di attivazione.
+- **`/llms.txt`**: riassunto in testo semplice per i crawler dei modelli generativi, generato a build dagli stessi contenuti di `site.it.json` (`src/pages/llms.txt.ts`).
+- **`robots.txt`**: consenso esplicito ai crawler di OpenAI, Anthropic, Perplexity, Google e Apple; `/grazie` e `/api/` esclusi. Sitemap con `lastmod`.
+
+Tutti i testi restano in `src/content/site.it.json` (chiavi `meta`, `about`, `faq`). Nessun numero o cliente inventato: solo i fatti del brief.
+
 ## Prestazioni e sicurezza
 
 - Lighthouse mobile (build locale): Performance 99, Accessibilità 100, Best practices 100, SEO 100. LCP 1,6 s, CLS 0.

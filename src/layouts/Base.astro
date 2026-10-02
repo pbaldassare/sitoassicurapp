@@ -22,16 +22,30 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL('/brand/og-image.png', Astro.site);
 const org = site.organization;
 
+const siteUrl = Astro.site?.toString() ?? '/';
+const orgId = `${siteUrl}#organization`;
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': orgId,
     name: site.meta.siteName,
     legalName: org.legalName,
-    url: Astro.site?.toString(),
+    url: siteUrl,
     logo: new URL('/brand/logo.svg', Astro.site).toString(),
     email: org.email,
     telephone: org.telephone,
+    areaServed: 'IT',
+    knowsLanguage: 'it',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}#website`,
+    name: site.meta.siteName,
+    url: siteUrl,
+    inLanguage: 'it',
+    publisher: { '@id': orgId },
   },
   ...(minimal
     ? []
@@ -39,7 +53,12 @@ const jsonLd = [
         {
           '@context': 'https://schema.org',
           '@type': 'SoftwareApplication',
+          '@id': `${siteUrl}#software`,
           name: site.meta.siteName,
+          alternateName: 'Assicurapp — preventivatore RC Auto multicompagnia',
+          keywords: site.meta.keywords.join(', '),
+          abstract: site.about.definition,
+          countriesSupported: 'IT',
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'Web',
           description: site.meta.description,
@@ -49,7 +68,7 @@ const jsonLd = [
           audience: { '@type': 'BusinessAudience', audienceType: 'Agenzie e broker assicurativi' },
           featureList: site.features.blocks.map((b) => b.title).join(', '),
           offers: { '@type': 'Offer', availability: 'https://schema.org/InStock', description: 'Demo su richiesta' },
-          provider: { '@type': 'Organization', name: org.legalName },
+          provider: { '@id': orgId },
         },
       ]),
 ];
@@ -62,6 +81,8 @@ const jsonLd = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content={site.meta.keywords.join(', ')} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="Riassunto per modelli generativi" />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#0F172A" />

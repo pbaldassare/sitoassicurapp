@@ -10,6 +10,6 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'never',
   build: { format: 'file', inlineStylesheets: 'auto' },
-  integrations: [sitemap()],
+  integrations: [sitemap({ lastmod: new Date(), filter: (page) => !page.endsWith('/grazie') })],
   vite: { plugins: [tailwindcss()] },
 });

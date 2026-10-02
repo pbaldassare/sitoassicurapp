@@ -2,6 +2,14 @@
 import site from '@/content/site.it.json';
 import Icon from '@/components/Icon.astro';
 const o = site.onboarding;
+const howTo = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: o.title,
+  description: `${o.intro} ${o.closing}`,
+  inLanguage: 'it',
+  step: o.steps.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, name: s.title, text: s.text })),
+};
 ---
 
 <section id="come-si-parte" class="section scroll-mt-20 bg-white" aria-labelledby="onboarding-title">
@@ -35,3 +43,4 @@ const o = site.onboarding;
     </p>
   </div>
 </section>
+<script type="application/ld+json" set:html={JSON.stringify(howTo)} />

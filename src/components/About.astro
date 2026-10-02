@@ -1,0 +1,29 @@
+---
+/**
+ * "Cos'è Assicurapp": una definizione in un paragrafo e sei fatti chiave.
+ * È il blocco pensato per motori di ricerca e di risposta: frasi autosufficienti,
+ * entità nominate per esteso, numeri reali. Niente che non sia nel brief.
+ */
+import site from '@/content/site.it.json';
+const a = site.about;
+---
+
+<section id="cos-e" class="section scroll-mt-20 bg-white" aria-labelledby="about-title">
+  <div class="container-content grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+    <div data-reveal>
+      <p class="eyebrow">{a.eyebrow}</p>
+      <h2 id="about-title" class="mt-4 text-h2 lg:text-[2.5rem] lg:leading-[3rem]">{a.title}</h2>
+      <p class="mt-5 text-lg leading-relaxed text-slate-600">{a.definition}</p>
+    </div>
+    <dl class="grid gap-x-8 gap-y-6 self-start sm:grid-cols-2" data-reveal style="--reveal-delay: 120ms">
+      {
+        a.facts.map((f) => (
+          <div class="border-t border-slate-200 pt-4">
+            <dt class="text-eyebrow uppercase text-navy-700">{f.term}</dt>
+            <dd class="mt-2 text-[0.9375rem] leading-relaxed text-slate-600">{f.detail}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

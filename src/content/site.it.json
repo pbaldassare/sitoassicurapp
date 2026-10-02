@@ -1,11 +1,19 @@
 {
   "meta": {
     "siteName": "Assicurapp",
-    "title": "Assicurapp — Preventivi, polizze e provvigioni in un solo accesso",
-    "description": "Piattaforma web per agenzie e broker: preventivi RC Auto, Moto e Autocarri su più compagnie, emissione, polizze, incassi e provvigioni. Un accesso solo, la tua agenzia con il tuo nome.",
+    "title": "Assicurapp — Preventivi RC Auto multicompagnia per agenzie e broker",
+    "description": "Piattaforma per agenzie e broker assicurativi: preventivi RC Auto, Moto e Autocarri su 20 compagnie, polizze, incassi e provvigioni. Con il tuo nome, logo e dominio.",
     "claim": "Preventivi, polizze e provvigioni. Un accesso solo.",
     "locale": "it_IT",
-    "twitterCard": "summary_large_image"
+    "twitterCard": "summary_large_image",
+    "keywords": [
+      "preventivatore RC Auto multicompagnia",
+      "piattaforma per agenzie assicurative",
+      "gestionale broker assicurativo",
+      "preventivi RC Auto da targa ANIA",
+      "software agenzia assicurativa",
+      "collaborazioni tra intermediari assicurativi"
+    ]
   },
   "nav": {
     "items": [
@@ -40,7 +48,7 @@
   },
   "hero": {
     "eyebrow": "Per agenzie e broker assicurativi",
-    "title": "Preventivi su più compagnie, polizze e provvigioni. Tutto in un posto.",
+    "title": "Preventivi RC Auto su più compagnie, polizze e provvigioni. Tutto in un posto.",
     "subtitle": "Assicurapp è la piattaforma web della tua agenzia: inserisci la targa, confronta le quotazioni delle compagnie, emetti e gestisci le polizze. Un accesso solo, con il tuo nome e il tuo logo.",
     "ctaPrimary": {
       "label": "Richiedi una demo",
@@ -159,7 +167,7 @@
   },
   "features": {
     "eyebrow": "Funzionalità",
-    "title": "Dal preventivo all'incasso, senza cambiare strumento.",
+    "title": "Cosa fai con Assicurapp: dal preventivo all'incasso, senza cambiare strumento.",
     "intro": "Otto aree di lavoro, una piattaforma. Ogni blocco è qualcosa che Assicurapp fa oggi.",
     "blocks": [
       {
@@ -254,7 +262,7 @@
   },
   "rates": {
     "eyebrow": "Tariffe",
-    "title": "Le compagnie che puoi interrogare.",
+    "title": "Compagnie e tariffe RC Auto che puoi interrogare con Assicurapp.",
     "intro": "Le tariffe base sono disponibili per ogni agenzia. Quelle in convenzione arrivano tramite accordi dedicati. Per la maggior parte delle tariffe base la copertura riguarda auto, autocarri e moto, con garanzie accessorie incluse.",
     "filters": [
       {
@@ -302,7 +310,7 @@
   },
   "collab": {
     "eyebrow": "Collaborazioni",
-    "title": "Una piattaforma sola. Convenzioni e moduli cambiano da agenzia ad agenzia.",
+    "title": "Collaborazioni tra agenzie: una piattaforma sola, convenzioni e moduli diversi.",
     "intro": "Assicurapp è costruita su tre livelli. È questa struttura che ti permette di collaborare con altri intermediari.",
     "levels": [
       {
@@ -352,7 +360,7 @@
   },
   "onboarding": {
     "eyebrow": "Come si parte",
-    "title": "Sei passi. Poi la tua istanza è pronta.",
+    "title": "Come attivare Assicurapp per la tua agenzia: sei passi.",
     "intro": "Nessuna installazione. Ci servono i dati della tua agenzia, in questo ordine.",
     "steps": [
       {
@@ -390,8 +398,16 @@
   },
   "faq": {
     "eyebrow": "FAQ",
-    "title": "Domande frequenti",
+    "title": "Domande frequenti su Assicurapp",
     "items": [
+      {
+        "q": "Cos'è Assicurapp?",
+        "a": "Assicurapp è una piattaforma web per agenzie e broker assicurativi: preventivi RC Auto, Moto e Autocarri su più compagnie, emissione, gestione delle polizze, incassi, provvigioni, anagrafiche e comunicazione con il cliente. Un accesso solo al posto di un portale per compagnia."
+      },
+      {
+        "q": "Per chi è pensata Assicurapp?",
+        "a": "Per agenzie e broker assicurativi italiani. Funziona per la singola agenzia e per chi ha una rete di intermediari: ogni collaboratore ha la propria istanza e chi coordina la rete vede le provvigioni di rete."
+      },
       {
         "q": "Serve un altro gestionale oltre ad Assicurapp?",
         "a": "No. Preventivi, emissione, polizze, incassi, provvigioni, anagrafiche e comunicazione con il cliente sono già in piattaforma. Il foglio cassa e l'export contabile coprono la parte amministrativa."
@@ -423,6 +439,26 @@
       {
         "q": "Come funziona il pagamento con carta?",
         "a": "Con le tue chiavi Stripe la piattaforma genera un link di pagamento già precompilato con importo e intestazione. Lo invii al cliente e l'incasso arriva sul tuo conto Stripe."
+      },
+      {
+        "q": "Quali compagnie si possono interrogare?",
+        "a": "15 tariffe base: ConTe, Italiana Assicurazioni, Groupama, Reale Mutua, Prima.it, Nobis Assicurazioni, Quixa, Genialpiù, Euroherc, Vittoria Assicurazioni, Verti Professional, Wakam, Linear Next, HDI e Zurich. Più 5 tariffe in convenzione: Allianz, Generali Cargo, Europ Assistance, Lloyd's e Net Insurance."
+      },
+      {
+        "q": "Come funziona la preventivazione da targa?",
+        "a": "Inserisci la targa e la piattaforma recupera da ANIA contraente, marca, modello e cilindrata, dove disponibili. Vale per auto, moto e autocarri. Poi scegli le compagnie da interrogare e le quotazioni arrivano nella stessa schermata."
+      },
+      {
+        "q": "Cosa serve per interrogare una tariffa?",
+        "a": "L'accesso (utente e password) al portale della compagnia. Senza credenziali la tariffa non produce offerte. Le tariffe in convenzione arrivano invece tramite accordi dedicati."
+      },
+      {
+        "q": "Cosa sono tariffa, convenzione e istanza?",
+        "a": "Sono i tre livelli di Assicurapp. La tariffa è il prodotto della compagnia. La convenzione è quella tariffa con le condizioni di chi la mette a disposizione. L'istanza è la piattaforma della singola agenzia, con le convenzioni abilitate e i moduli accesi."
+      },
+      {
+        "q": "Posso usare il mio dominio e il mio logo?",
+        "a": "Sì. Ogni agenzia ha la sua istanza con nome, logo PNG e dominio propri, più email e telefono di risposta verso i clienti. Per il dominio serve solo un inoltro DNS."
       }
     ]
   },
@@ -621,5 +657,36 @@
     "email": "[EMAIL AGENZIA — placeholder]",
     "telephone": "[TELEFONO — placeholder]",
     "address": "[SEDE — placeholder]"
+  },
+  "about": {
+    "eyebrow": "In breve",
+    "title": "Cos'è Assicurapp",
+    "definition": "Assicurapp è una piattaforma web per agenzie e broker assicurativi italiani. Fa la preventivazione automatica RC Auto, Moto e Autocarri su più compagnie, l'emissione e la gestione delle polizze, gli incassi, le provvigioni, le anagrafiche e la comunicazione con il cliente. Sostituisce un portale per compagnia con un solo accesso. Ogni agenzia ha la sua istanza, con nome, logo e dominio propri.",
+    "facts": [
+      {
+        "term": "Per chi",
+        "detail": "Agenzie e broker assicurativi, da soli o in rete con altri intermediari."
+      },
+      {
+        "term": "Prodotti",
+        "detail": "RC Auto, Moto, Autocarri, CVT standalone e prodotti personalizzati con quotazione inserita a mano."
+      },
+      {
+        "term": "Compagnie",
+        "detail": "15 tariffe base (ConTe, Italiana Assicurazioni, Groupama, Reale Mutua, Prima.it, Nobis, Quixa, Genialpiù, Euroherc, Vittoria, Verti Professional, Wakam, Linear Next, HDI, Zurich) e 5 in convenzione (Allianz, Generali Cargo, Europ Assistance, Lloyd's, Net Insurance)."
+      },
+      {
+        "term": "Preventivo",
+        "detail": "Dalla targa, con ricerca automatica su ANIA: contraente, marca, modello e cilindrata, dove disponibili."
+      },
+      {
+        "term": "Pagamenti",
+        "detail": "Bonifico sull'IBAN dell'agenzia e carta tramite link Stripe precompilato."
+      },
+      {
+        "term": "Attivazione",
+        "detail": "Nessuna installazione: sei blocchi di dati e l'istanza è pronta in pochi giorni."
+      }
+    ]
   }
 }
