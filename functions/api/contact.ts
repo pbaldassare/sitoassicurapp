@@ -93,6 +93,7 @@ async function sendWithResend(env: Env, d: ContactPayload, meta: { ip: string; u
       text,
     }),
   });
+  if (!res.ok) console.error('Resend: risposta', res.status, await res.text());
   return res.ok;
 }
 
@@ -114,6 +115,12 @@ function json(body: unknown, status = 200) {
 }
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+  // Accetta solo invii dal sito stesso
+  const origin = request.headers.get('origin');
+  if (origin && new URL(origin).host !== new URL(request.url).host) {
+    return json({ ok: false, error: 'forbidden' }, 403);
+  }
+
   let fd: FormData;
   try {
     fd = await request.formData();
@@ -141,14 +148,14 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   let emailed = false;
   try {
     emailed = await sendWithResend(env, v.data, meta);
-  } catch {
-    emailed = false;
+  } catch (e) {
+    console.error('Resend: invio fallito', e);
   }
   let stored = false;
   try {
     stored = await saveToKv(env, v.data, meta, emailed);
-  } catch {
-    stored = false;
+  } catch (e) {
+    console.error('KV: salvataggio fallito', e);
   }
 
   if (!emailed && !stored) {

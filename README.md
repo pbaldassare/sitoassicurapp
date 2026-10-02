@@ -13,7 +13,7 @@ e, se configurato, salva una copia in Cloudflare KV.
 | `npm run build` | build statica in `dist/` |
 | `npm run preview` | anteprima della build |
 | `npm run pages:dev` | build + `wrangler pages dev dist`: sito **e** function `/api/contact` in locale |
-| `npm run brand:build` | rigenera logo, favicon, icone e immagine OG in `public/brand/` |
+| `npm run brand:build` | rigenera logo, favicon, icone e immagine OG in `public/brand/` (su Windows/macOS: `CHROMIUM_PATH=<percorso di Chrome>`) |
 | `npm run screenshots` | screenshot desktop/mobile di ogni sezione in `docs/screenshots/` |
 | `npm run check` | controllo tipi Astro/TypeScript |
 
@@ -106,7 +106,20 @@ Altri valori da confermare fuori dal JSON:
 Nessun cookie e nessun tracker di terze parti. Se servono statistiche, abilita **Cloudflare Web Analytics** dal pannello
 Pages (Settings → Web Analytics): non usa cookie e non richiede banner.
 
+Il font (Plus Jakarta Sans 400–700, solo latin) è servito dal sito tramite `@fontsource/plus-jakarta-sans`: niente
+connessioni a Google Fonts. Il brief indicava Google Fonts, ma il suo CSS bloccava il rendering e teneva Lighthouse
+mobile a 83.
+
+## Prestazioni e sicurezza
+
+- Lighthouse mobile (build locale): Performance 99, Accessibilità 100, Best practices 100, SEO 100. LCP 1,6 s, CLS 0.
+- `public/_headers`: CSP restrittiva (solo risorse del sito), HSTS, `X-Frame-Options`, cache lunga sugli asset con hash
+  e di una settimana su `/brand/*`, che non ha hash nel nome.
+- `/api/contact` rifiuta gli invii con `Origin` di un altro dominio e scrive nei log di Cloudflare gli errori di Resend e KV.
+- Senza JavaScript il form usa la validazione nativa del browser; con JavaScript gli errori compaiono accanto ai campi.
+
 ## Brand
 
 Regole in `docs/brand-guidelines.md`. Il logo è un SVG originale generato in codice da `scripts/build-brand.mjs`
 (testo convertito in path da Plus Jakarta Sans Bold, scudo con spunta disegnato geometricamente).
+La penultima "p" resta intera; l'asta dell'ultima "p" scende sotto la linea di base e diventa lo scudo.

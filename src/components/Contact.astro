@@ -29,7 +29,6 @@ const f = c.fields;
       class="card card-glow p-6 lg:p-8"
       action="/api/contact"
       method="post"
-      novalidate
       data-contact-form
       data-reveal
       style="--reveal-delay: 100ms"
@@ -113,6 +112,8 @@ const f = c.fields;
 <script>
   const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
   if (form) {
+    // Con JS gestiamo noi la validazione (errori inline); senza JS resta quella nativa del browser
+    form.noValidate = true;
     const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
     const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]')!;
     const status = form.querySelector<HTMLElement>('[data-status]')!;

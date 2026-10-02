@@ -4,8 +4,9 @@
  * - logo.svg, logo-white.svg, logo-mark.svg, favicon.svg: SVG vettoriali
  *   costruiti in codice. La parola "assicurapp" è convertita in path a partire
  *   da Plus Jakarta Sans Bold (scripts/fonts/), così il file non dipende dal font.
- *   Le due "p" finali perdono i discendenti: al loro posto, sotto la linea di
- *   base, nasce uno scudo verde con segno di spunta (il "mark").
+ *   L'ultima "p" perde il discendente: al suo posto, sotto la linea di base,
+ *   la sua asta diventa uno scudo verde con segno di spunta (il "mark").
+ *   La penultima "p" resta intera, così la parola si legge come "pp".
  * - favicon-32.png, apple-touch-icon.png, og-image.png: rasterizzati con Chromium.
  *
  * Uso: `npm run brand:build`
@@ -71,16 +72,13 @@ const stemL = Math.min(...descPts);
 const stemR = Math.max(...descPts);
 const stemW = stemR - stemL;
 
-// Lo scudo copre dall'asta della prima "p" all'asta della seconda "p"
-// Centrato sotto la coppia "pp", largo quanto la distanza tra le due aste
-const ppLeft = p1.x + stemL;
-const ppRight = p2.x + pGlyph.getBoundingBox().x2 * scale;
-const shieldW = p2.x + stemR - ppLeft;
-const shieldL = (ppLeft + ppRight) / 2 - shieldW / 2;
-const shieldR = shieldL + shieldW;
+// Lo scudo prolunga l'asta della seconda "p": centrato sull'asta, largo il doppio,
+// profondo poco più del discendente che sostituisce
+const cx = p2.x + (stemL + stemR) / 2;
+const shieldW = stemW * 2;
+const shieldL = cx - shieldW / 2;
 const shieldH = shieldW * 0.86;
-const shieldTop = 0; // linea di base
-const cx = (shieldL + shieldR) / 2;
+const shieldTop = -0.1; // appena sopra la linea di base, per saldarsi all'asta
 
 function shieldPath(L, T, W, H) {
   const R = L + W;
@@ -108,14 +106,14 @@ const descenderDepth = -pGlyph.getBoundingBox().y1 * scale; // ≈ 20
 const ascent = pGlyph.getBoundingBox().y2 * scale; // x-height ≈ 54
 const wordTop = -Math.max(...glyphs.map((g) => g.glyph.getBoundingBox().y2 * scale));
 
-// Path della parola "assicura" + "pp" (queste ultime clippate sopra la linea di base)
-const wordPaths = glyphs.slice(0, -2).map((g) => pathData(g.glyph, g.x)).join(' ');
-const ppPaths = [p1, p2].map((g) => pathData(g.glyph, g.x)).join(' ');
+// Path di "assicurap" + l'ultima "p" (clippata sopra la linea di base)
+const wordPaths = glyphs.slice(0, -1).map((g) => pathData(g.glyph, g.x)).join(' ');
+const ppPaths = pathData(p2.glyph, p2.x);
 
 function wordmarkSvg({ wordColor, shieldColor, checkColor, id }) {
   const pad = 8;
   const top = wordTop - pad;
-  const bottom = shieldTop + shieldH + pad;
+  const bottom = Math.max(shieldTop + shieldH, descenderDepth) + pad;
   const left = -pad;
   const right = wordWidth + pad;
   const w = right - left;
@@ -123,12 +121,12 @@ function wordmarkSvg({ wordColor, shieldColor, checkColor, id }) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${r(left)} ${r(top)} ${r(w)} ${r(h)}" width="${r(w * 2)}" height="${r(h * 2)}" role="img" aria-labelledby="${id}-title">
   <title id="${id}-title">assicurapp</title>
   <defs>
-    <clipPath id="${id}-clip"><rect x="${r(p1.x - 2)}" y="${r(wordTop - pad)}" width="${r(wordWidth - p1.x + pad)}" height="${r(-(wordTop - pad) + 0.01)}"/></clipPath>
+    <clipPath id="${id}-clip"><rect x="${r(p2.x - 2)}" y="${r(wordTop - pad)}" width="${r(wordWidth - p2.x + pad)}" height="${r(-(wordTop - pad) + 0.01)}"/></clipPath>
   </defs>
   <path fill="${wordColor}" d="${wordPaths}"/>
   <g clip-path="url(#${id}-clip)"><path fill="${wordColor}" d="${ppPaths}"/></g>
   <path fill="${shieldColor}" d="${shieldPath(shieldL, shieldTop, shieldW, shieldH)}"/>
-  <polyline fill="none" stroke="${checkColor}" stroke-width="${r(stemW * 0.62)}" stroke-linecap="round" stroke-linejoin="round" points="${checkPoints(cx, shieldTop, shieldW, shieldH)}"/>
+  <polyline fill="none" stroke="${checkColor}" stroke-width="${r(shieldW * 0.13)}" stroke-linecap="round" stroke-linejoin="round" points="${checkPoints(cx, shieldTop, shieldW, shieldH)}"/>
 </svg>
 `;
 }
@@ -194,7 +192,7 @@ Il sito usa la variante principale (wordmark + scudo) in \`public/brand/\`.
 
 // Metriche utili per i componenti (proporzioni del logo)
 const meta = {
-  wordmark: { width: r(wordWidth + 16), height: r(shieldH + 8 - (wordTop - 8)) },
+  wordmark: { width: r(wordWidth + 16), height: r(Math.max(shieldTop + shieldH, descenderDepth) + 8 - (wordTop - 8)) },
   shield: { left: r(shieldL), width: r(shieldW), height: r(shieldH) },
   stemWidth: r(stemW),
   xHeight: r(ascent),
@@ -218,7 +216,8 @@ async function shot({ html, width, height, file, omitBackground = false }) {
   console.log('PNG', path.relative(ROOT, file));
 }
 
-const fontUrl = 'file://' + FONT;
+// data URL: da una pagina about:blank Chromium non carica i font file://
+const fontUrl = 'data:font/ttf;base64,' + fs.readFileSync(FONT).toString('base64');
 const base = `<style>
   @font-face { font-family: 'PJS'; src: url('${fontUrl}') format('truetype'); font-weight: 700; }
   * { margin: 0; box-sizing: border-box; }

@@ -33,7 +33,7 @@ Esempi:
 ## 3. Logo
 
 **Wordmark + segno.** La parola `assicurapp` in minuscolo, Plus Jakarta Sans 700, convertita in path.
-Le due "p" finali perdono i discendenti: al loro posto, appeso alla linea di base, nasce uno **scudo verde con segno di spunta**.
+La penultima "p" resta intera; l'asta dell'ultima "p" scende sotto la linea di base e diventa uno **scudo verde con segno di spunta**, largo il doppio dell'asta.
 Il resto della parola è navy `#1E3A8A`. Lo scudo funziona anche da solo (favicon, app icon).
 
 File in `public/brand/` (generati da `npm run brand:build`, script `scripts/build-brand.mjs`):
@@ -72,7 +72,7 @@ Sul navy usare bianco o `slate-400 #94A3B8` per il testo secondario. Sul verde `
 
 ## 5. Tipografia
 
-Famiglia unica: **Plus Jakarta Sans** (300/400/500/600/700) da Google Fonts, con fallback
+Famiglia unica: **Plus Jakarta Sans** (400/500/600/700), servita dal sito stesso tramite `@fontsource/plus-jakarta-sans` (niente connessioni a Google), con fallback
 `ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif`.
 
 | Stile | Dimensione / interlinea | Peso | Note |
