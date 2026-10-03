@@ -1,14 +1,13 @@
 {
   "wordmark": {
-    "width": 551.9,
-    "height": 112.93
+    "width": 672.4,
+    "height": 110.5
   },
-  "shield": {
-    "left": 468.25,
-    "width": 26.2,
-    "height": 22.53
+  "mark": {
+    "width": 94.5,
+    "height": 94.5,
+    "gap": 26
   },
-  "stemWidth": 13.1,
-  "xHeight": 55.6,
+  "ascent": 74.5,
   "descender": 20
 }

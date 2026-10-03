@@ -136,5 +136,5 @@ Tutti i testi restano in `src/content/site.it.json` (chiavi `meta`, `about`, `fa
 ## Brand
 
 Regole in `docs/brand-guidelines.md`. Il logo è un SVG originale generato in codice da `scripts/build-brand.mjs`
-(testo convertito in path da Plus Jakarta Sans Bold, scudo con spunta disegnato geometricamente).
-La penultima "p" resta intera; l'asta dell'ultima "p" scende sotto la linea di base e diventa lo scudo.
+(segno "Orbita": A geometrica in un anello aperto chiuso da una freccia verde, disegnato geometricamente;
+parola convertita in path da Plus Jakarta Sans Bold). Le proposte valutate sono in `docs/logo-alternative/logo-a-proposte.png`.

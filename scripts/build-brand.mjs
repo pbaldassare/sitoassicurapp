@@ -2,11 +2,10 @@
  * Genera gli asset del brand in public/brand/ e docs/logo-alternative/.
  *
  * - logo.svg, logo-white.svg, logo-mark.svg, favicon.svg: SVG vettoriali
- *   costruiti in codice. La parola "assicurapp" è convertita in path a partire
- *   da Plus Jakarta Sans Bold (scripts/fonts/), così il file non dipende dal font.
- *   L'ultima "p" perde il discendente: al suo posto, sotto la linea di base,
- *   la sua asta diventa uno scudo verde con segno di spunta (il "mark").
- *   La penultima "p" resta intera, così la parola si legge come "pp".
+ *   costruiti in codice. Il segno è una "A" geometrica dentro un anello aperto
+ *   che si chiude con una freccia verde ("Orbita"). La parola "assicurapp" è
+ *   convertita in path da Plus Jakarta Sans Bold (scripts/fonts/), così il file
+ *   non dipende dal font.
  * - favicon-32.png, apple-touch-icon.png, og-image.png: rasterizzati con Chromium.
  *
  * Uso: `npm run brand:build`
@@ -56,30 +55,65 @@ function pathData(glyph, x) {
 }
 
 // ---------------------------------------------------------------------------
-// Geometria del wordmark
+// Il segno: "A" geometrica dentro un anello aperto che si chiude con una freccia
+// ("Orbita"). Disegnato in un quadrato 100x100, riusato ovunque alla stessa scala.
+// ---------------------------------------------------------------------------
+const MARK_BOX = 100;
+function markInner({ aColor, ringColor, arrowColor }) {
+  return [
+    `<path fill="${aColor}" fill-rule="evenodd" d="M50 22 L78 82 H65 L59 69 H41 L35 82 H22 Z M45 58 H55 L50 46 Z"/>`,
+    `<path fill="none" stroke="${ringColor}" stroke-width="8" stroke-linecap="round" d="M78 24 A40 40 0 1 0 90 50"/>`,
+    `<path fill="none" stroke="${arrowColor}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" d="M78 42 L92 50 L80 62"/>`,
+  ].join('\n  ');
+}
+
+// ---------------------------------------------------------------------------
+// Geometria del wordmark: [segno] + "assicurapp" (parola intera, nessun clip)
 // ---------------------------------------------------------------------------
 const { glyphs, width: wordWidth } = layout('assicurapp');
-const [p1, p2] = glyphs.slice(-2);
-const pGlyph = p1.glyph;
+const wordTop = -Math.max(...glyphs.map((g) => g.glyph.getBoundingBox().y2 * scale)); // ≈ -78
+const descenderDepth = -glyphs.at(-1).glyph.getBoundingBox().y1 * scale; // ≈ 20
+const ascent = -wordTop;
+const wordPaths = glyphs.map((g) => pathData(g.glyph, g.x)).join(' ');
 
-// Larghezza dell'asta della "p": punti del contorno nella zona del discendente
-const pPath = pGlyph.getPath(0, 0, SIZE);
-const descPts = [];
-for (const c of pPath.commands) {
-  if (c.x !== undefined && c.y > 6) descPts.push(c.x);
+// Il segno è alto quanto la parola (dall'ascendente al discendente) e sta a sinistra, con un vuoto pari a mezza x-height
+const markH = ascent + descenderDepth;
+const markScale = markH / MARK_BOX;
+const markGap = 26;
+const markW = MARK_BOX * markScale;
+const wordX = markW + markGap;
+
+function wordmarkSvg({ wordColor, aColor, ringColor, arrowColor, id }) {
+  const pad = 8;
+  const top = wordTop - pad;
+  const bottom = descenderDepth + pad;
+  const left = -pad;
+  const right = wordX + wordWidth + pad;
+  const w = right - left;
+  const h = bottom - top;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${r(left)} ${r(top)} ${r(w)} ${r(h)}" width="${r(w * 2)}" height="${r(h * 2)}" role="img" aria-labelledby="${id}-title">
+  <title id="${id}-title">assicurapp</title>
+  <g transform="translate(0 ${r(wordTop)}) scale(${r(markScale)})">
+  ${markInner({ aColor, ringColor, arrowColor })}
+  </g>
+  <path fill="${wordColor}" transform="translate(${r(wordX)} 0)" d="${wordPaths}"/>
+</svg>
+`;
 }
-const stemL = Math.min(...descPts);
-const stemR = Math.max(...descPts);
-const stemW = stemR - stemL;
 
-// Lo scudo prolunga l'asta della seconda "p": centrato sull'asta, largo il doppio,
-// profondo poco più del discendente che sostituisce
-const cx = p2.x + (stemL + stemR) / 2;
-const shieldW = stemW * 2;
-const shieldL = cx - shieldW / 2;
-const shieldH = shieldW * 0.86;
-const shieldTop = -0.1; // appena sopra la linea di base, per saldarsi all'asta
+function markSvg({ aColor, ringColor, arrowColor, bg, size = 64, padding = 0.1 }) {
+  const box = MARK_BOX * (1 + padding * 2);
+  const off = (box - MARK_BOX) / 2;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${r(box)} ${r(box)}" width="${size}" height="${size}" role="img" aria-label="Assicurapp">
+  ${bg ? `<rect width="${r(box)}" height="${r(box)}" rx="${r(box * 0.22)}" fill="${bg}"/>` : ''}
+  <g transform="translate(${r(off)} ${r(off)})">
+  ${markInner({ aColor, ringColor, arrowColor })}
+  </g>
+</svg>
+`;
+}
 
+// Scudo con spunta: era il segno precedente, resta disponibile per la variante B e per i documenti
 function shieldPath(L, T, W, H) {
   const R = L + W;
   const mid = T + H * 0.42;
@@ -94,57 +128,6 @@ function shieldPath(L, T, W, H) {
     `C${r(x - c * 0.55)} ${r(bottom - H * 0.12)} ${r(L)} ${r(mid + H * 0.3)} ${r(L)} ${r(mid)}`,
     'Z',
   ].join(' ');
-}
-
-function checkPoints(x, T, W, H) {
-  const cy = T + H * 0.44;
-  const s = W / 2;
-  return `${r(x - s * 0.42)},${r(cy)} ${r(x - s * 0.1)},${r(cy + s * 0.32)} ${r(x + s * 0.46)},${r(cy - s * 0.3)}`;
-}
-
-const descenderDepth = -pGlyph.getBoundingBox().y1 * scale; // ≈ 20
-const ascent = pGlyph.getBoundingBox().y2 * scale; // x-height ≈ 54
-const wordTop = -Math.max(...glyphs.map((g) => g.glyph.getBoundingBox().y2 * scale));
-
-// Path di "assicurap" + l'ultima "p" (clippata sopra la linea di base)
-const wordPaths = glyphs.slice(0, -1).map((g) => pathData(g.glyph, g.x)).join(' ');
-const ppPaths = pathData(p2.glyph, p2.x);
-
-function wordmarkSvg({ wordColor, shieldColor, checkColor, id }) {
-  const pad = 8;
-  const top = wordTop - pad;
-  const bottom = Math.max(shieldTop + shieldH, descenderDepth) + pad;
-  const left = -pad;
-  const right = wordWidth + pad;
-  const w = right - left;
-  const h = bottom - top;
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${r(left)} ${r(top)} ${r(w)} ${r(h)}" width="${r(w * 2)}" height="${r(h * 2)}" role="img" aria-labelledby="${id}-title">
-  <title id="${id}-title">assicurapp</title>
-  <defs>
-    <clipPath id="${id}-clip"><rect x="${r(p2.x - 2)}" y="${r(wordTop - pad)}" width="${r(wordWidth - p2.x + pad)}" height="${r(-(wordTop - pad) + 0.01)}"/></clipPath>
-  </defs>
-  <path fill="${wordColor}" d="${wordPaths}"/>
-  <g clip-path="url(#${id}-clip)"><path fill="${wordColor}" d="${ppPaths}"/></g>
-  <path fill="${shieldColor}" d="${shieldPath(shieldL, shieldTop, shieldW, shieldH)}"/>
-  <polyline fill="none" stroke="${checkColor}" stroke-width="${r(shieldW * 0.13)}" stroke-linecap="round" stroke-linejoin="round" points="${checkPoints(cx, shieldTop, shieldW, shieldH)}"/>
-</svg>
-`;
-}
-
-function markSvg({ shieldColor, checkColor, bg, size = 64, padding = 0.1 }) {
-  // Scudo centrato in un quadrato
-  const W = 100;
-  const H = W * 0.86;
-  const box = Math.max(W, H) * (1 + padding * 2);
-  const L = (box - W) / 2;
-  const T = (box - H) / 2;
-  const x = box / 2;
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${r(box)} ${r(box)}" width="${size}" height="${size}" role="img" aria-label="Assicurapp">
-  ${bg ? `<rect width="${r(box)}" height="${r(box)}" rx="${r(box * 0.22)}" fill="${bg}"/>` : ''}
-  <path fill="${shieldColor}" d="${shieldPath(L, T, W, H)}"/>
-  <polyline fill="none" stroke="${checkColor}" stroke-width="${r(W * 0.11)}" stroke-linecap="round" stroke-linejoin="round" points="${checkPoints(x, T, W, H)}"/>
-</svg>
-`;
 }
 
 // Variante B (solo documentazione): monogramma "A" a scudo attraversato da una linea di percorso
@@ -169,10 +152,10 @@ function altSvg({ shieldColor, lineColor, bg }) {
 // Scrittura SVG
 // ---------------------------------------------------------------------------
 const files = {
-  'logo.svg': wordmarkSvg({ wordColor: NAVY, shieldColor: GREEN, checkColor: WHITE, id: 'ap' }),
-  'logo-white.svg': wordmarkSvg({ wordColor: WHITE, shieldColor: GREEN, checkColor: NAVY_900, id: 'apw' }),
-  'logo-mark.svg': markSvg({ shieldColor: GREEN, checkColor: WHITE, size: 64, padding: 0.02 }),
-  'favicon.svg': markSvg({ shieldColor: GREEN, checkColor: WHITE, size: 32, padding: 0.06 }),
+  'logo.svg': wordmarkSvg({ wordColor: NAVY, aColor: NAVY, ringColor: NAVY, arrowColor: GREEN, id: 'ap' }),
+  'logo-white.svg': wordmarkSvg({ wordColor: WHITE, aColor: WHITE, ringColor: WHITE, arrowColor: GREEN, id: 'apw' }),
+  'logo-mark.svg': markSvg({ aColor: NAVY, ringColor: NAVY, arrowColor: GREEN, size: 64, padding: 0.02 }),
+  'favicon.svg': markSvg({ aColor: WHITE, ringColor: WHITE, arrowColor: GREEN, bg: NAVY_900, size: 32, padding: 0.1 }),
 };
 for (const [name, svg] of Object.entries(files)) {
   fs.writeFileSync(path.join(OUT, name), svg);
@@ -192,10 +175,9 @@ Il sito usa la variante principale (wordmark + scudo) in \`public/brand/\`.
 
 // Metriche utili per i componenti (proporzioni del logo)
 const meta = {
-  wordmark: { width: r(wordWidth + 16), height: r(Math.max(shieldTop + shieldH, descenderDepth) + 8 - (wordTop - 8)) },
-  shield: { left: r(shieldL), width: r(shieldW), height: r(shieldH) },
-  stemWidth: r(stemW),
-  xHeight: r(ascent),
+  wordmark: { width: r(wordX + wordWidth + 16), height: r(descenderDepth + 8 - (wordTop - 8)) },
+  mark: { width: r(markW), height: r(markH), gap: markGap },
+  ascent: r(ascent),
   descender: r(descenderDepth),
 };
 fs.writeFileSync(path.join(OUT, 'logo-meta.json'), JSON.stringify(meta, null, 2) + '\n');
@@ -236,7 +218,7 @@ await shot({
 
 // apple-touch-icon.png 180px (sfondo navy, scudo verde)
 await shot({
-  html: `${base}<body style="background:${NAVY_900}">${markSvg({ shieldColor: GREEN, checkColor: WHITE, size: 180, padding: 0.22 })}</body>`,
+  html: `${base}<body style="background:${NAVY_900}">${markSvg({ aColor: WHITE, ringColor: WHITE, arrowColor: GREEN, size: 180, padding: 0.22 })}</body>`,
   width: 180,
   height: 180,
   file: path.join(OUT, 'apple-touch-icon.png'),
