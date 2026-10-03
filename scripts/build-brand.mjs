@@ -42,7 +42,7 @@ function layout(text) {
   let prev = null;
   for (const ch of text) {
     const g = font.charToGlyph(ch);
-    if (prev) x += font.getKerningValue(prev, g) * scale;
+    if (prev) x += (font.getKerningValue(prev, g) || 0) * scale;
     glyphs.push({ ch, glyph: g, x });
     x += g.advanceWidth * scale;
     prev = g;
@@ -50,8 +50,19 @@ function layout(text) {
   return { glyphs, width: x };
 }
 
+// Serializzazione manuale: toPathData() di opentype.js 2.0 produce NaN su alcune coordinate
 function pathData(glyph, x) {
-  return glyph.getPath(x, 0, SIZE).toPathData(2);
+  return glyph
+    .getPath(x, 0, SIZE)
+    .commands.map((c) => {
+      switch (c.type) {
+        case 'M': case 'L': return `${c.type}${r(c.x)} ${r(c.y)}`;
+        case 'Q': return `Q${r(c.x1)} ${r(c.y1)} ${r(c.x)} ${r(c.y)}`;
+        case 'C': return `C${r(c.x1)} ${r(c.y1)} ${r(c.x2)} ${r(c.y2)} ${r(c.x)} ${r(c.y)}`;
+        default: return 'Z';
+      }
+    })
+    .join('');
 }
 
 // ---------------------------------------------------------------------------
@@ -68,19 +79,21 @@ function markInner({ aColor, ringColor, arrowColor }) {
 }
 
 // ---------------------------------------------------------------------------
-// Geometria del wordmark: [segno] + "assicurapp" (parola intera, nessun clip)
+// Geometria del wordmark: la "A" del segno È la prima lettera della parola,
+// seguita da "ssicurapp". Il segno è più alto delle minuscole (dall'ascendente al discendente).
 // ---------------------------------------------------------------------------
-const { glyphs, width: wordWidth } = layout('assicurapp');
-const wordTop = -Math.max(...glyphs.map((g) => g.glyph.getBoundingBox().y2 * scale)); // ≈ -78
-const descenderDepth = -glyphs.at(-1).glyph.getBoundingBox().y1 * scale; // ≈ 20
+const { glyphs, width: wordWidth } = layout('ssicurapp');
+const ref = layout('assicurapp').glyphs; // metriche verticali della parola completa
+const wordTop = -Math.max(...ref.map((g) => g.glyph.getBoundingBox().y2 * scale)); // ≈ -78
+const descenderDepth = -ref.at(-1).glyph.getBoundingBox().y1 * scale; // ≈ 20
 const ascent = -wordTop;
 const wordPaths = glyphs.map((g) => pathData(g.glyph, g.x)).join(' ');
 
-// Il segno è alto quanto la parola (dall'ascendente al discendente) e sta a sinistra, con un vuoto pari a mezza x-height
+// L'anello occupa tutta l'altezza della parola; la "s" segue a distanza di una spaziatura tra lettere
 const markH = ascent + descenderDepth;
 const markScale = markH / MARK_BOX;
-const markGap = 26;
-const markW = MARK_BOX * markScale;
+const markGap = 6;
+const markW = 92 * markScale; // fino alla punta della freccia (x=92 nel box)
 const wordX = markW + markGap;
 
 function wordmarkSvg({ wordColor, aColor, ringColor, arrowColor, id }) {
@@ -92,8 +105,8 @@ function wordmarkSvg({ wordColor, aColor, ringColor, arrowColor, id }) {
   const w = right - left;
   const h = bottom - top;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${r(left)} ${r(top)} ${r(w)} ${r(h)}" width="${r(w * 2)}" height="${r(h * 2)}" role="img" aria-labelledby="${id}-title">
-  <title id="${id}-title">assicurapp</title>
-  <g transform="translate(0 ${r(wordTop)}) scale(${r(markScale)})">
+  <title id="${id}-title">Assicurapp</title>
+  <g transform="translate(${r(-10 * markScale)} ${r(wordTop)}) scale(${r(markScale)})">
   ${markInner({ aColor, ringColor, arrowColor })}
   </g>
   <path fill="${wordColor}" transform="translate(${r(wordX)} 0)" d="${wordPaths}"/>

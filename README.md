@@ -136,5 +136,5 @@ Tutti i testi restano in `src/content/site.it.json` (chiavi `meta`, `about`, `fa
 ## Brand
 
 Regole in `docs/brand-guidelines.md`. Il logo è un SVG originale generato in codice da `scripts/build-brand.mjs`
-(segno "Orbita": A geometrica in un anello aperto chiuso da una freccia verde, disegnato geometricamente;
-parola convertita in path da Plus Jakarta Sans Bold). Le proposte valutate sono in `docs/logo-alternative/logo-a-proposte.png`.
+(segno "Orbita": A geometrica in un anello aperto chiuso da una freccia verde, che è la prima lettera della parola;
+il resto, `ssicurapp`, è convertito in path da Plus Jakarta Sans Bold). Le proposte valutate sono in `docs/logo-alternative/logo-a-proposte.png`.

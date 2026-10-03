@@ -33,8 +33,8 @@ Esempi:
 ## 3. Logo
 
 **Segno + wordmark.** Il segno ("Orbita") è una **A geometrica** dentro un anello aperto che si chiude con una **freccia verde**: la lettera iniziale, il movimento del preventivo che parte, la copertura che si chiude intorno al cliente. È ispirato alle lettere-emblema del cinema d'azione ma è una costruzione originale: nessuna forma è ripresa da marchi esistenti.
-A sinistra del segno nulla; a destra, dopo uno spazio pari a mezza x-height, la parola `assicurapp` in minuscolo, Plus Jakarta Sans 700, convertita in path. A e anello navy `#1E3A8A`, freccia verde `#10B981`; in negativo A e anello bianchi, freccia sempre verde.
-Il segno è alto quanto la parola (dall'ascendente al discendente) e funziona da solo come favicon e icona app. Nel wordmark c'è un solo segno: lo scudo con spunta della versione precedente non si usa più.
+**La A è la prima lettera della parola**: il segno sostituisce la "a" iniziale e il wordmark continua con `ssicurapp` in minuscolo, Plus Jakarta Sans 700, convertita in path, a una spaziatura di lettera dalla punta della freccia. A e anello navy `#1E3A8A`, freccia verde `#10B981`; in negativo A e anello bianchi, freccia sempre verde.
+Il segno è alto quanto la parola (dall'ascendente al discendente), quindi svetta sulle minuscole, e funziona da solo come favicon e icona app. Nel wordmark c'è un solo segno: lo scudo con spunta della versione precedente non si usa più.
 
 File in `public/brand/` (generati da `npm run brand:build`, script `scripts/build-brand.mjs`):
 

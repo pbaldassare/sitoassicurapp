@@ -1,12 +1,12 @@
 {
   "wordmark": {
-    "width": 672.4,
+    "width": 586.84,
     "height": 110.5
   },
   "mark": {
-    "width": 94.5,
+    "width": 86.94,
     "height": 94.5,
-    "gap": 26
+    "gap": 6
   },
   "ascent": 74.5,
   "descender": 20
